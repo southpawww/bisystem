@@ -1,0 +1,93 @@
+@charset "ISO-8859-1";
+
+
+
+* {
+  
+  font-family: "Lato", sans-serif;
+   src: url('https://fonts.googleapis.com/css?family=Poppins'); 
+}
+
+body{
+    margin:0;
+}
+
+.outer {
+  
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  border: 3px solid #535352;
+  box-shadow: 0px 0px 5px 1px #888888;
+
+}
+
+
+#username{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#password {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+#loginButton{
+
+  background-color: #FFEB00;
+  color: black;
+ 
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+ padding: 0px 20px;
+   font-size: 10px;
+
+}
+
+#loginButton:hover {
+  opacity: 0.8;
+}
+
+#loginText {
+	
+
+  width: 100%;
+  padding: 5px 0 0 0;
+   margin: 0px;
+   background-color: black;
+   color: white;
+   text-align: center;
+
+   display: inline-block;
+   font-size: 16px;
+   
+}
+
+#loginTable{
+ margin: auto;
+ width: 100%;
+ 
+}
+****************************************************
