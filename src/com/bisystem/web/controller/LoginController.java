@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bisystem.dao.UserDaoImpl;
 import com.bisystem.model.Login;
+import com.bisystem.daoimpl.UserDaoImpl;
 import com.bisystem.model.AppUser;
 
 import org.springframework.security.core.userdetails.UserDetails;

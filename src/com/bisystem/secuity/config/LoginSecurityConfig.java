@@ -37,8 +37,8 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 	   auth.jdbcAuthentication().dataSource(dataSource)
 	  .usersByUsernameQuery(
 	   "select username,password, enabled from TM_USER where username=?")
-	  .authoritiesByUsernameQuery("Select username, MS_ROLES.R_NAME as role from TM_USER "
-              + "join MS_ROLES on TM_USER.ID_ROLE = MS_ROLES.ID_ROLE"
+	  .authoritiesByUsernameQuery("Select username, ROLES.ROLES_NAME as role from TM_USER "
+              + "join ROLES on TM_USER.ROLE_ID = ROLES.ID_ROLE"
               + " where TM_USER.username = ?");
 	 } 
 	

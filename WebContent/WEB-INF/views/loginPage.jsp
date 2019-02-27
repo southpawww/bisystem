@@ -19,7 +19,7 @@
                 <table align="center" style=" margin-top: 20px;">
                     <tr>
                         <td>
-                            <form:label path="username"> <i>Username </i> </form:label>
+                            <form:label path="username"><i>Username </i> </form:label>
                         </td>
                         </tr>
                         <tr>

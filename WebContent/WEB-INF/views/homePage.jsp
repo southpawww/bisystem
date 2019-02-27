@@ -22,14 +22,12 @@
         <ul id="sidemenu">
             <li><a href="#"><i class="fa fa-bars" style="font-size:36px;"></i></a>
              <ul>
-                    <li> Container 2
-                    </li>
+                    <li> Settings</li>
             </ul>
             
             <li>
                 <ul>
-                    <li> Container 1
-                    </li>
+                    <li> Container 1 </li>
                 </ul>
             </li>
             
@@ -39,20 +37,18 @@
 
 
 <div class="box">
-<h3>Welcome to ...</h3>
-<ul>
-   <li>Spring</li>
-   <li>Spring</li>
-   <li>Spring</li>
-   <li>Spring</li>
-</ul>
+
+<img src="resources/images/charts-dashboard.png" alt="Graph1" height="800" width="100%">
+ <c:url value="/logout" var="logoutUrl" />
+ <form id="logout" action="${logoutUrl}" method="post" >
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form>
+ <!--
  <h3>${password}</h3>
  <h3>${_csrf.parameterName}</h3>
  <h3>${_csrf.token}</h3>
-<c:url value="/logout" var="logoutUrl" />
-<form id="logout" action="${logoutUrl}" method="post" >
-  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-</form>
+
+
 
  <form:form name="login" modelAttribute="login" action="loginProcess" method="post">
                 <table>
@@ -65,6 +61,7 @@
                    
                 </table>
             </form:form>
+-->
 </div>
  </body>
  </html>

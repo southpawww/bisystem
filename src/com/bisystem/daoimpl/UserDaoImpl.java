@@ -1,4 +1,4 @@
-package com.bisystem.dao;
+package com.bisystem.daoimpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,27 +6,59 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.bisystem.dao.UserMapper;
-import com.bisystem.model.Login;
+import com.bisystem.dao.UserDao;
 import com.bisystem.model.AppUser;
+import com.bisystem.model.Login;
+import com.bisystem.model.User;
 
-@Repository
+
+
+
+@Repository("UserDao")
 public class UserDaoImpl implements UserDao {
 
 	  @Autowired
 	  DataSource datasource;
 	  @Autowired
 	  JdbcTemplate jdbcTemplate;
+	  /*
+	  @Autowired
+	  private SessionFactory sessionFactory;
 	  
-	 
-	 
+	  @Override
+		public void persistUser(User user) {
+		 sessionFactory.getCurrentSession().persist(user);
+			
+		}
+
+		@Override
+		public User findUserById(int id) {
+			 return (User) sessionFactory.getCurrentSession().get(User.class, id);
+			
+		}
+
+
+		@Override
+		public void updateUser(User user) {
+			 sessionFactory.getCurrentSession().update(user);
+			
+		}
+
+		@Override
+		public void deleteUser(User user) {
+			sessionFactory.getCurrentSession().delete(user);
+			
+		}
+*/
+
+	  
+	
 	  
 	  
 	  public void register(AppUser user) {
@@ -51,9 +83,9 @@ public class UserDaoImpl implements UserDao {
 	  
 	  public AppUser getUserInfo(String username)
 	  {
-		  String sql="Select username, MS_ROLES.R_NAME as role " + 
+		  String sql="Select username, ROLES.ROLES_NAME as role " + 
 		  		"from TM_USER " + 
-		  		"join MS_ROLES on TM_USER.ID_ROLE = MS_ROLES.ID_ROLE " + 
+		  		"join ROLES on TM_USER.ROLE_ID = ROLES.ID_ROLE " + 
 		  		"where tm_user.enabled=1 and TM_USER.username =?" ;
 		  	
 		  AppUser user = jdbcTemplate.queryForObject(sql, new Object[]{username},
@@ -68,6 +100,15 @@ public class UserDaoImpl implements UserDao {
       });
 		  return user;
 	  }
+
+
+
+
+
+
+	
+
+
 }
 
 

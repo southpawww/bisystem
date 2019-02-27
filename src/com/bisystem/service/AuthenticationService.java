@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.bisystem.dao.UserDaoImpl;
+import com.bisystem.daoimpl.UserDaoImpl;
 import com.bisystem.model.AppUser;
 
 @Service
