@@ -5,15 +5,19 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -21,18 +25,23 @@ import org.springframework.web.servlet.view.JstlView;
 
 
 import com.bisystem.dao.UserDao;
-import com.bisystem.daoimpl.UserDaoImpl;
-import com.bisystem.model.User;
-
+import com.bisystem.dao.UserDaoImpl;
+import org.springframework.core.env.Environment;
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "com.bisystem.*" })
 @Import(value = { LoginSecurityConfig.class })
+@ImportResource("classpath*:applicationContext.xml")
 public class LoginApplicationConfig {
 	
 	@Autowired
 	DataSource dataSource;
 	
+	 @Autowired
+	 private Environment environment;
+	 
+
+	 
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -66,25 +75,34 @@ public class LoginApplicationConfig {
 	       //empDao.setJdbcTemplate(jdbcTemplate());
 	        return empDao;
 	    }
-	 
 	 /*
-	 @Bean 
-	    public LocalSessionFactoryBean SessionFactory(DataSource dataSource) {
-	       LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-	        Properties hibernateProperties = new Properties();
-	        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
-	        hibernateProperties.setProperty("hibernate.show_sql", "true");
+	 @Bean
+	    public LocalSessionFactoryBean sessionFactory() {
+	        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+	        sessionFactory.setDataSource(dataSource());
+	        sessionFactory.setPackagesToScan(new String[] { "com.bisystem.model" });
+	        sessionFactory.setHibernateProperties(hibernateProperties());
 	       
-	        sessionFactory.setDataSource(dataSource);
-	        sessionFactory.setHibernateProperties(hibernateProperties);
-	      
-	        sessionFactory.setAnnotatedClasses(User.class);
-	       
-
 	        return sessionFactory;
-	    }
-	*/
+	     }
 	 
+	 private Properties hibernateProperties() {
+	        Properties properties = new Properties();
+	        
+	        
+	        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
+	        properties.setProperty("hibernate.show_sql", "true");
+	        properties.setProperty("hibernate.id.new_generator_mappings", Boolean.toString(true));
+	        return properties; 
+	    }
+	 
+	 @Bean
+	 @Autowired
+	 public HibernateTransactionManager transactionManager(SessionFactory s) {
+	       HibernateTransactionManager txManager = new HibernateTransactionManager();
+	       txManager.setSessionFactory(s);
+	       return txManager;
+	    }
 
-	
+	*/
 }

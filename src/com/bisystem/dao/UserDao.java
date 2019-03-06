@@ -1,21 +1,15 @@
 package com.bisystem.dao;
 
-import com.bisystem.model.Login;
+import java.util.List;
+
 import com.bisystem.model.User;
-import com.bisystem.model.AppUser;
 
 public interface UserDao {
 
-    void register(AppUser user);
+	public void addUser(User p);
+	public void updateUser(User p);
+	public List<User> listUsers();
+	public User getUserById(int id);
+	public void removeUser(int id);
 	
-    AppUser validateUser(Login login);
-    
-    /*void persistUser(User user);
-    
-    User findUserById(int id);
-     
-    void updateUser(User user);
-     
-    void deleteUser(User user);
-	*/
 }

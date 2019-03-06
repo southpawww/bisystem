@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bisystem.model.Login;
-import com.bisystem.daoimpl.UserDaoImpl;
+import com.bisystem.model.User;
+import com.bisystem.dao.UserDaoImpl;
 import com.bisystem.model.AppUser;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -87,6 +88,15 @@ public class LoginController {
 		return model;
 	}
 	
+     @RequestMapping(value = {"/usermanagement"}, method = RequestMethod.GET)
+     public ModelAndView usermanagement() {
+	ModelAndView model = new ModelAndView();
+	model.addObject("user", new User());
+     	model.setViewName("index");
+	   return model;
+}
+
+
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public ModelAndView loginPage(@RequestParam(value = "error",required = false) String error,
 	@RequestParam(value = "logout",	required = false) String logout, @ModelAttribute("login") Login login) {

@@ -1,15 +1,15 @@
 package com.bisystem.service;
-/*
+
+import java.util.List;
+
 import com.bisystem.model.User;
+
 
 public interface UserService {
 
-	void persistUser(User user);
-	 
-    User findUserById(int id);
- 
-    void updateUser(User user);
- 
-    void deleteUser(User user);
+	public void addUser(User p);
+	public void updateUser(User p);
+	public List<User> listUsers();
+	public User getUserById(int id);
+	public void removeUser(int id);
 }
-*/

@@ -12,6 +12,7 @@
    <a href="#"  style="width:18px;" class="active">""</a>
   <a href="${pageContext.request.contextPath}/userPage">User</a>
   <a href="${pageContext.request.contextPath}/adminPage">Admin</a>
+<a href="${pageContext.request.contextPath}/usermanagement">Admin</a>
   <a href="javascript:document.getElementById('logout').submit()">Log out</a>
   <a href="#about">About</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
