@@ -2,6 +2,8 @@ package com.bisystem.dao;
 
 import java.util.List;
 
+import com.bisystem.model.AppUser;
+import com.bisystem.model.Login;
 import com.bisystem.model.User;
 
 public interface UserDao {
@@ -12,4 +14,6 @@ public interface UserDao {
 	public User getUserById(int id);
 	public void removeUser(int id);
 	
+	public AppUser validateUser(Login login);
+	public AppUser getUserInfo(String username);
 }

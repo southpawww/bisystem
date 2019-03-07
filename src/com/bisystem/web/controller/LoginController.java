@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,10 +30,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Controller
 public class LoginController {
     
-    @Autowired
-	UserDaoImpl userService;
+    //@Autowired
+	//UserDaoImpl userService;
    
-
+	/* 
 	 @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
 	  @ModelAttribute("login") Login login,ModelMap model) {
@@ -41,7 +42,7 @@ public class LoginController {
 	    String name = SecurityContextHolder.getContext().getAuthentication().getName();
 	    model.addAttribute("password",name);
       
-	  AppUser user = userService.validateUser(login);
+	 AppUser user = userService.validateUser(login);
 	  if (null != user) {
 		    
 		    mav.addObject("firstname", user.getFirstname());
@@ -54,7 +55,7 @@ public class LoginController {
 	    mav.setViewName("adminPage");
 	    return mav;
 	  }
-	
+	*/
 	@RequestMapping(value = { "/"}, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 		ModelAndView model = new ModelAndView();
@@ -111,7 +112,7 @@ public class LoginController {
 		if (logout != null) {
 			model.addObject("message", "Logged out from BI system successfully.");
 		}
-		AppUser user = userService.validateUser(login);
+	//	AppUser user = userService.validateUser(login);
 		  
 			  
 		

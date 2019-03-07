@@ -31,7 +31,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @ComponentScan({ "com.bisystem.*" })
 @Import(value = { LoginSecurityConfig.class })
-@ImportResource("classpath*:applicationContext.xml")
+@ImportResource("classpath:applicationContext.xml")
 public class LoginApplicationConfig {
 	
 	@Autowired
@@ -50,7 +50,7 @@ public class LoginApplicationConfig {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
-	
+	/*
 	@Bean
 	public DriverManagerDataSource dataSource() {
 	     DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
@@ -61,21 +61,21 @@ public class LoginApplicationConfig {
 	     
 	     return driverManagerDataSource;
 	 }
-	
+	*/
 	@Bean
     public JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource());
+        jdbcTemplate.setDataSource(dataSource);
         return jdbcTemplate;
     }
-	
+	/*
 	 @Bean
 	    public UserDao userDao(){
 		 UserDaoImpl empDao = new UserDaoImpl();
 	       //empDao.setJdbcTemplate(jdbcTemplate());
 	        return empDao;
 	    }
-	 /*
+	
 	 @Bean
 	    public LocalSessionFactoryBean sessionFactory() {
 	        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -103,6 +103,6 @@ public class LoginApplicationConfig {
 	       txManager.setSessionFactory(s);
 	       return txManager;
 	    }
-
-	*/
+*/
+	
 }

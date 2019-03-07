@@ -21,13 +21,14 @@ import com.bisystem.model.Login;
 import com.bisystem.model.User;
 
 
-@Repository("UserDao")
+@Repository
 public class UserDaoImpl implements UserDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
-	@Autowired
+	  @Autowired
 	  DataSource datasource;
+	
 	  @Autowired
 	  JdbcTemplate jdbcTemplate;
 	
@@ -81,7 +82,8 @@ public class UserDaoImpl implements UserDao {
 		logger.info("Person deleted successfully, person details="+p);
 	}
 
-	  public void register(AppUser user) {
+	 
+	 public void register(AppUser user) {
 		    String sql = "insert into users values(?,?,?,?,?)";
 		    jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getPassword(), user.getFirstname(),
 		    user.getLastname(), user.getEmail()});
@@ -120,9 +122,8 @@ public class UserDaoImpl implements UserDao {
 	      });
 			  return user;
 		  }
+	
 }
-
-
 class UserMapper implements RowMapper<AppUser> {
 	  
 	public AppUser mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -137,4 +138,5 @@ class UserMapper implements RowMapper<AppUser> {
 	  }
 	
 }
+
 

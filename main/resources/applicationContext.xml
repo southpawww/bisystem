@@ -46,5 +46,15 @@
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
+		
+<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<beans:property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:XE" />
+		<beans:property name="username" value="marek" />
+		<beans:property name="password" value="beno" />
+	</beans:bean>
+	
  
 </beans:beans>

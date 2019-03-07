@@ -2,6 +2,8 @@ package com.bisystem.service;
 
 import java.util.List;
 
+import com.bisystem.model.AppUser;
+import com.bisystem.model.Login;
 import com.bisystem.model.User;
 
 
@@ -12,4 +14,7 @@ public interface UserService {
 	public List<User> listUsers();
 	public User getUserById(int id);
 	public void removeUser(int id);
+	
+	public AppUser validateUser(Login login);
+	public AppUser getUserInfo(String username);
 }
