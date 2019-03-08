@@ -32,7 +32,7 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-	
+		
 	<beans:bean id="userDao" class="com.bisystem.dao.UserDaoImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
@@ -46,7 +46,7 @@
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	
-		
+	
 <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -56,5 +56,13 @@
 		<beans:property name="password" value="beno" />
 	</beans:bean>
 	
- 
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="dataSource"/>
+   </bean>
+	
+
+ <beans:bean id="loginDao" class="com.bisystem.dao.LoginDaoImpl"></beans:bean>
+ <beans:bean id="loginService" class="com.bisystem.service.LoginServiceImpl">
+ 	<beans:property name="loginDao" ref="loginDao"></beans:property>
+ </beans:bean>
 </beans:beans>

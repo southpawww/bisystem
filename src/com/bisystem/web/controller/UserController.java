@@ -30,8 +30,17 @@ public class UserController {
 	public String listUsers(Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("listUsers", this.userService.listUsers());
-		return "index";
+		return "userAdministration";
 	}
+	
+	@RequestMapping(value = "/addusers", method = RequestMethod.GET)
+	public String loadUsers(Model model) {
+		model.addAttribute("user", new User());
+		model.addAttribute("listUsers", this.userService.listUsers());
+		return "userAdministration";
+	}
+	
+	
 	
 	//For add and update user both
 	@RequestMapping(value= "/user/add", method = RequestMethod.POST)
@@ -60,7 +69,7 @@ public class UserController {
     public String editUser(@PathVariable("id") int id, Model model){
         model.addAttribute("user", this.userService.getUserById(id));
         model.addAttribute("listUser", this.userService.listUsers());
-        return "user";
+        return "userAdministration";
     }
    
     
@@ -83,8 +92,8 @@ public class UserController {
 		model.setViewName("adminPage");
 		return model;
 	}
-    
-*/
+    */
+
 
 }
     

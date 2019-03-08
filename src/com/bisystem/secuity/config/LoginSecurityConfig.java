@@ -80,7 +80,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		BCryptPasswordEncoder  encoder = new BCryptPasswordEncoder();
-            auth.userDetailsService(authenticationService).passwordEncoder(encoder);
+        //    auth.userDetailsService(authenticationService).passwordEncoder(encoder);
 	}
 	
 	

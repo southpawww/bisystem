@@ -1,12 +1,15 @@
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page session="false" %>
 <html>
+
 <head>
-	<title>Person Page</title>
-	<style type="text/css">
+<link href="<c:url value="/resources/main.css" />" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
 		.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
 		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
 		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
@@ -14,6 +17,37 @@
 	</style>
 </head>
 <body>
+<div class="topnav" id="myTopnav">
+   <a href="#"  style="width:18px;" class="active">""</a>
+  <a href="${pageContext.request.contextPath}/userPage">User</a>
+  <a href="${pageContext.request.contextPath}/adminPage">Admin</a>
+<a href="${pageContext.request.contextPath}/usermanagement">User Management</a>
+  <a href="javascript:document.getElementById('logout').submit()">Log out</a>
+  <a href="#about">About</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+    <div id="menuwrapper">
+        <ul id="sidemenu">
+            <li><a href="#"><i class="fa fa-bars" style="font-size:36px;"></i></a>
+             <ul>
+                    <li> Settings</li>
+            </ul>
+            
+            <li>
+                <ul>
+                    <li> Container 1 </li>
+                </ul>
+            </li>
+            
+           
+    	</ul>
+</div>
+
+
+<div class="box">
+
 <h1>
 	Add a user
 </h1>
@@ -81,7 +115,7 @@
 </table>	
 </form:form>
 <br>
-<h3>Persons List</h3>
+<h3>Users List</h3>
 
 	<table class="tg">
 	<tr>
@@ -102,5 +136,18 @@
 	</c:forEach>
 	</table>
 
-</body>
-</html>
+ <c:url value="/logout" var="logoutUrl" />
+ <form id="logout" action="${logoutUrl}" method="post" >
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form>
+
+ <h3>${password}</h3>
+  <h3>${_csrf.parameterName}</h3>
+ <h3>${_csrf.token}</h3>
+
+
+
+</div>
+ </body>
+ </html>
+ 

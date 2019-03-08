@@ -23,23 +23,17 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 
-
-import com.bisystem.dao.UserDao;
-import com.bisystem.dao.UserDaoImpl;
 import org.springframework.core.env.Environment;
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "com.bisystem.*" })
 @Import(value = { LoginSecurityConfig.class })
 @ImportResource("classpath:applicationContext.xml")
-public class LoginApplicationConfig {
+public class ApplicationConfig {
 	
 	@Autowired
 	DataSource dataSource;
 	
-	 @Autowired
-	 private Environment environment;
-	 
 
 	 
 	@Bean
@@ -61,7 +55,7 @@ public class LoginApplicationConfig {
 	     
 	     return driverManagerDataSource;
 	 }
-	*/
+	
 	@Bean
     public JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
@@ -75,7 +69,7 @@ public class LoginApplicationConfig {
 	       //empDao.setJdbcTemplate(jdbcTemplate());
 	        return empDao;
 	    }
-	
+		/*	
 	 @Bean
 	    public LocalSessionFactoryBean sessionFactory() {
 	        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();

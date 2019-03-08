@@ -11,28 +11,30 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.bisystem.dao.UserDao;
 import com.bisystem.model.AppUser;
-
 
 @Service
 public class AuthenticationService implements UserDetailsService {
 
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	/*
 	@Autowired
-	private UserService userService;
+	private UserDaoImpl userDaoImpl;
 	
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		AppUser user = userService.getUserInfo(username);
+		AppUser user = userDaoImpl.getUserInfo(username);
 		GrantedAuthority authority = new SimpleGrantedAuthority(user.getPassword());
 		UserDetails userDetails = (UserDetails)new User(user.getUsername(), 
 				user.getPassword(), Arrays.asList(authority));
-	
 		
 		return userDetails;
 		
 	}
-
+*/
 }

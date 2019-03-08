@@ -12,7 +12,7 @@
    <a href="#"  style="width:18px;" class="active">""</a>
   <a href="${pageContext.request.contextPath}/userPage">User</a>
   <a href="${pageContext.request.contextPath}/adminPage">Admin</a>
-<a href="${pageContext.request.contextPath}/usermanagement">Admin</a>
+<a href="${pageContext.request.contextPath}/usermanagement">User Management</a>
   <a href="javascript:document.getElementById('logout').submit()">Log out</a>
   <a href="#about">About</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -44,9 +44,9 @@
  <form id="logout" action="${logoutUrl}" method="post" >
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
- <!--
+
  <h3>${password}</h3>
- <h3>${_csrf.parameterName}</h3>
+ <!-- <h3>${_csrf.parameterName}</h3>
  <h3>${_csrf.token}</h3>
 
 

@@ -21,7 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bisystem.model.Login;
 import com.bisystem.model.User;
-import com.bisystem.dao.UserDaoImpl;
+import com.bisystem.service.LoginService;
+import com.bisystem.service.UserService;
 import com.bisystem.model.AppUser;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,11 +30,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 public class LoginController {
-    
-    //@Autowired
-	//UserDaoImpl userService;
+   /* 
+    @Autowired(required=true)
+    @Qualifier("loginDao")
+	LoginService loginService;
    
-	/* 
+*/
+	@Autowired
+   // @Qualifier("loginService")
+	private LoginService loginService;
+	/*
+	public void setLoginDao(LoginService loginService) {
+		this.loginService = loginService;
+	}
+	*/
 	 @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
 	  @ModelAttribute("login") Login login,ModelMap model) {
@@ -42,7 +52,7 @@ public class LoginController {
 	    String name = SecurityContextHolder.getContext().getAuthentication().getName();
 	    model.addAttribute("password",name);
       
-	 AppUser user = userService.validateUser(login);
+	  AppUser user = loginService.validateLogin(login);
 	  if (null != user) {
 		    
 		    mav.addObject("firstname", user.getFirstname());
@@ -52,10 +62,10 @@ public class LoginController {
 		    
 		    mav.addObject("message", "Username or Password is wrong!!");
 		    }
-	    mav.setViewName("adminPage");
+	    mav.setViewName("homePage");
 	    return mav;
 	  }
-	*/
+	
 	@RequestMapping(value = { "/"}, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 		ModelAndView model = new ModelAndView();
@@ -89,15 +99,6 @@ public class LoginController {
 		return model;
 	}
 	
-     @RequestMapping(value = {"/usermanagement"}, method = RequestMethod.GET)
-     public ModelAndView usermanagement() {
-	ModelAndView model = new ModelAndView();
-	model.addObject("user", new User());
-     	model.setViewName("index");
-	   return model;
-}
-
-
 	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public ModelAndView loginPage(@RequestParam(value = "error",required = false) String error,
 	@RequestParam(value = "logout",	required = false) String logout, @ModelAttribute("login") Login login) {
@@ -112,13 +113,21 @@ public class LoginController {
 		if (logout != null) {
 			model.addObject("message", "Logged out from BI system successfully.");
 		}
-	//	AppUser user = userService.validateUser(login);
+	//	AppUser user = loginService.validateLogin(login);
 		  
 			  
 		
 		return model;
 	}
 
+	@RequestMapping(value = {"/usermanagement"}, method = RequestMethod.GET)
+	public String userManagement() {
+		ModelAndView model = new ModelAndView();
+		model.addObject("user",new User());
+		model.setViewName("index");
+		return "redirect:/addusers";
 	
+		
+	}
 	
 }
