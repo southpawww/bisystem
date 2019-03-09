@@ -120,12 +120,12 @@ public class LoginController {
 		return model;
 	}
 
-	@RequestMapping(value = {"/usermanagement"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/admin/usermanagement"}, method = RequestMethod.GET)
 	public String userManagement() {
 		ModelAndView model = new ModelAndView();
 		model.addObject("user",new User());
-		model.setViewName("index");
-		return "redirect:/addusers";
+	
+		return "redirect:/admin/addusers";
 	
 		
 	}

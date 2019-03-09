@@ -4,7 +4,7 @@ package com.bisystem.secuity.config.core;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.bisystem.secuity.config.ApplicationConfig;
-
+/*
 public class SpringMVCWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
@@ -23,3 +23,4 @@ public class SpringMVCWebAppInitializer extends AbstractAnnotationConfigDispatch
 	}
 	
 }
+*/

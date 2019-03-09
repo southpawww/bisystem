@@ -50,9 +50,10 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		
 		http.authorizeRequests()
-			.antMatchers("/homePage").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+			.antMatchers("/homePage").authenticated()
 			.antMatchers("/userPage").access("hasRole('ROLE_USER')")
 			.antMatchers("/adminPage").access("hasRole('ROLE_ADMIN')")
+			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 			.and()
 				.formLogin().loginPage("/loginPage")
 				
@@ -60,7 +61,8 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 				.failureUrl("/loginPage")
 				.usernameParameter("username").passwordParameter("password")				
 			.and()
-				.logout().logoutSuccessUrl("/loginPage?logout"); 
+				.logout().logoutSuccessUrl("/loginPage?logout")
+				.and().exceptionHandling().accessDeniedPage("/homePage"); 
 		
 	}
 	

@@ -8,6 +8,7 @@
 
 <head>
 <link href="<c:url value="/resources/main.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/admPage.css" />" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
 		.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
@@ -17,9 +18,32 @@
 	</style>
 </head>
 <body>
+<script>
+function myFunction() {
+  
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+ 
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
 <div class="topnav" id="myTopnav">
    <a href="#"  style="width:18px;" class="active">""</a>
-  <a href="${pageContext.request.contextPath}/userPage">User</a>
+  <a href="${pageContext.request.contextPath}/homePage">Dashboard</a>
   <a href="${pageContext.request.contextPath}/adminPage">Admin</a>
 <a href="${pageContext.request.contextPath}/usermanagement">User Management</a>
   <a href="javascript:document.getElementById('logout').submit()">Log out</a>
@@ -103,12 +127,10 @@
 	<tr>
 		<td colspan="2">
 			<c:if test="${!empty user.username}">
-				<input type="submit"
-					value="<spring:message text="Edit Person"/>" />
+				 <form:button id="addButton" name="user"><h2>Edit user</h2></form:button>
 			</c:if>
 			<c:if test="${empty user.username}">
-				<input type="submit"
-					value="<spring:message text="Add Person"/>" />
+				  <form:button id="addButton" name="user"><h2>Create user</h2></form:button>
 			</c:if>
 		</td>
 	</tr>
@@ -116,9 +138,9 @@
 </form:form>
 <br>
 <h3>Users List</h3>
-
-	<table class="tg">
-	<tr>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for users...">
+	<table id="myTable" class="tg">
+	<tr class="header">
 		<th width="80">User ID</th>
 		<th width="120">User Name</th>
 		<th width="120">User Password</th>

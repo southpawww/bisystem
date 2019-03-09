@@ -1,7 +1,9 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<html>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<html">
 
 <head>
 <link href="<c:url value="/resources/main.css" />" rel="stylesheet">
@@ -10,9 +12,12 @@
 <body>
 <div class="topnav" id="myTopnav">
    <a href="#"  style="width:18px;" class="active">""</a>
-  <a href="${pageContext.request.contextPath}/userPage">User</a>
-  <a href="${pageContext.request.contextPath}/adminPage">Admin</a>
-<a href="${pageContext.request.contextPath}/usermanagement">User Management</a>
+  <a href="${pageContext.request.contextPath}/homePage">Dashboard</a>
+ 
+  <a href="${pageContext.request.contextPath}/adminPage">Admin(test accces)</a>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <a href="${pageContext.request.contextPath}/admin/usermanagement">User Management</a>
+</sec:authorize>
   <a href="javascript:document.getElementById('logout').submit()">Log out</a>
   <a href="#about">About</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">

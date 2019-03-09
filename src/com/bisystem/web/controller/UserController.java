@@ -33,11 +33,11 @@ public class UserController {
 		return "userAdministration";
 	}
 	
-	@RequestMapping(value = "/addusers", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addusers", method = RequestMethod.GET)
 	public String loadUsers(Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("listUsers", this.userService.listUsers());
-		return "userAdministration";
+		return "admin/userAdministration";
 	}
 	
 	
