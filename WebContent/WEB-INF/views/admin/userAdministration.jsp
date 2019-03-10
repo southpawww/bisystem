@@ -3,11 +3,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ page session="false" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <html>
 
 <head>
-<link href="<c:url value="/resources/main.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/test_page.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/admPage.css" />" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
@@ -18,41 +19,28 @@
 	</style>
 </head>
 <body>
-<script>
-function myFunction() {
+<div class="grid-container">
   
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
- 
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    } 
-  }
-}
-</script>
-<div class="topnav" id="myTopnav">
+   
+  <header class="header">
+   <div class="topnav">
    <a href="#"  style="width:18px;" class="active">""</a>
   <a href="${pageContext.request.contextPath}/homePage">Dashboard</a>
-  <a href="${pageContext.request.contextPath}/adminPage">Admin</a>
-<a href="${pageContext.request.contextPath}/usermanagement">User Management</a>
+ 
+ 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <a href="${pageContext.request.contextPath}/admin/usermanagement">User Management</a>
+</sec:authorize>
   <a href="javascript:document.getElementById('logout').submit()">Log out</a>
-  <a href="#about">About</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
 </div>
-    <div id="menuwrapper">
+  
+  </header>
+
+  <aside class="sidenav">
+     <div id="menuwrapper">
         <ul id="sidemenu">
             <li><a href="#"><i class="fa fa-bars" style="font-size:36px;"></i></a>
              <ul>
@@ -68,15 +56,12 @@ function myFunction() {
            
     	</ul>
 </div>
+  </aside>
 
-
-<div class="box">
-
-<h1>
-	Add a user
-</h1>
-
-<c:url var="addAction" value="/user/add" ></c:url>
+  <main class="main">
+    <div class="main-header">
+      <div class="main-header__heading">Add a user
+      <c:url var="addAction" value="/user/add" ></c:url>
 
 <form:form action="${addAction}" modelAttribute="user">
 <table>
@@ -135,12 +120,18 @@ function myFunction() {
 		</td>
 	</tr>
 </table>	
-</form:form>
-<br>
-<h3>Users List</h3>
+</form:form></div>
+      <div class="main-header__updates">Lorem ipsum</div>
+    </div>
+
+ 
+
+    <div class="main-cards">
+      <div class="card">
+      <h3>Users List</h3>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for users...">
 	<table id="myTable" class="tg">
-	<tr class="header">
+	<tr>
 		<th width="80">User ID</th>
 		<th width="120">User Name</th>
 		<th width="120">User Password</th>
@@ -157,6 +148,43 @@ function myFunction() {
 		</tr>
 	</c:forEach>
 	</table>
+      </div>
+     
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__copyright" style="float:left">&copy; 2019</div>
+    <div class="footer__signature">Made by me...</div>
+  </footer>
+</div>
+<script>
+function myFunction() {
+  
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+ 
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+
+
+
+
 
  <c:url value="/logout" var="logoutUrl" />
  <form id="logout" action="${logoutUrl}" method="post" >
@@ -167,9 +195,6 @@ function myFunction() {
   <h3>${_csrf.parameterName}</h3>
  <h3>${_csrf.token}</h3>
 
-
-
-</div>
  </body>
  </html>
  

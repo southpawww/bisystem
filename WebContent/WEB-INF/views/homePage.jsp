@@ -3,28 +3,32 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<html">
+<html>
 
 <head>
 <link href="<c:url value="/resources/main.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/test_page.css" />" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<div class="topnav" id="myTopnav">
+<div class="grid-container">
+  
+   
+  <header class="header">
+   <div class="topnav">
    <a href="#"  style="width:18px;" class="active">""</a>
   <a href="${pageContext.request.contextPath}/homePage">Dashboard</a>
- 
-  <a href="${pageContext.request.contextPath}/adminPage">Admin(test accces)</a>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
     <a href="${pageContext.request.contextPath}/admin/usermanagement">User Management</a>
 </sec:authorize>
   <a href="javascript:document.getElementById('logout').submit()">Log out</a>
-  <a href="#about">About</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
+
 </div>
-    <div id="menuwrapper">
+  
+  </header>
+
+  <aside class="sidenav">
+     <div id="menuwrapper">
         <ul id="sidemenu">
             <li><a href="#"><i class="fa fa-bars" style="font-size:36px;"></i></a>
              <ul>
@@ -40,17 +44,49 @@
            
     	</ul>
 </div>
+  </aside>
 
+  <main class="main">
+    <div class="main-header">
+      <div class="main-header__heading">Hello</div>
+      <div class="main-header__updates">Recent Items</div>
+    </div>
 
-<div class="box">
+    <div class="main-overview">
+      <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Summary</div>
+      </div>
+      <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Summary</div>
+      </div>
+      <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Summary</div>
+      </div>
+      <div class="overviewcard">
+        <div class="overviewcard__icon">Overview</div>
+        <div class="overviewcard__info">Summary</div>
+      </div>
+    </div>
 
-<img src="resources/images/charts-dashboard.png" alt="Graph1" height="800" width="100%">
- <c:url value="/logout" var="logoutUrl" />
+    <div class="main-cards">
+      <div class="card">Chart #1</div>
+      <div class="card">Chart #2</div>
+      <div class="card">Chart #3</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__copyright" style="float:left">&copy; 2019</div>
+    <div class="footer__signature">Made by me...</div>
+  </footer>
+</div>
+<c:url value="/logout" var="logoutUrl" />
  <form id="logout" action="${logoutUrl}" method="post" >
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
-
- <h3>${password}</h3>
  <!-- <h3>${_csrf.parameterName}</h3>
  <h3>${_csrf.token}</h3>
 
