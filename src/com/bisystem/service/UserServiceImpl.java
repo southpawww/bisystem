@@ -2,6 +2,8 @@ package com.bisystem.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,4 +48,12 @@ public class UserServiceImpl implements UserService {
 	public void removeUser(int id) {
 		this.userDao.removeUser(id);
 	}
+
+	@Override
+	@Transactional
+	public List<User> getUsersByPage(int pageid, int total) {
+		return this.userDao.getUsersByPage(pageid, total);
+		
+	}
+		
 }

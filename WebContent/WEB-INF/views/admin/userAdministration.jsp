@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <link href="<c:url value="/resources/test_page.css" />" rel="stylesheet">
@@ -17,6 +17,10 @@
 		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
 		.tg .tg-4eph{background-color:#f9f9f9}
 	</style>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="paging.js"></script>
+
 </head>
 <body>
 <div class="grid-container">
@@ -60,11 +64,12 @@
 
   <main class="main">
     <div class="main-header">
-      <div class="main-header__heading">Add a user
+      <div class="main-header__heading">Add a user  ${username}
       <c:url var="addAction" value="/user/add" ></c:url>
 
 <form:form action="${addAction}" modelAttribute="user">
 <table>
+   <c:if test="${not empty message}"><div><b>${message}</b></div></c:if>
 	<c:if test="${!empty user.username}">
 	<tr>
 		<td>
@@ -85,7 +90,7 @@
 			</form:label>
 		</td>
 		<td>
-			<form:input path="username" />
+			<form:input path="username" required="required" id="addInput"/>
 		</td> 
 	</tr>
 	<tr>
@@ -95,7 +100,7 @@
 			</form:label>
 		</td>
 		<td>
-			<form:input path="password" />
+			<form:input path="password" required="required" id="addInput" />
 		</td>
 	</tr>
 	
@@ -106,7 +111,7 @@
 			</form:label>
 		</td>
 		<td>
-			<form:input path="roleId" />
+			<form:input path="roleId" id="addInput" required="required"/>
 		</td> 
 	</tr>
 	<tr>
@@ -124,12 +129,12 @@
       <div class="main-header__updates">Lorem ipsum</div>
     </div>
 
- 
 
     <div class="main-cards">
       <div class="card">
       <h3>Users List</h3>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for users...">
+<div style="overflow-y: scroll; height:400px;width: 100%;">
 	<table id="myTable" class="tg">
 	<tr>
 		<th width="80">User ID</th>
@@ -148,8 +153,9 @@
 		</tr>
 	</c:forEach>
 	</table>
+	</div>
       </div>
-     
+       <div class="card"><h3>User profile</h3></div>
     </div>
   </main>
 
@@ -180,6 +186,11 @@ function myFunction() {
     } 
   }
 }
+
+
+
+
+
 </script>
 
 

@@ -81,7 +81,7 @@ public class LoginController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String name = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
 	    UserDetails userDetails = (UserDetails)auth.getPrincipal();
-	    modell.addAttribute("password",userDetails.getUsername());
+	    modell.addAttribute("username",userDetails.getUsername());
 		return model;
 	}
 	

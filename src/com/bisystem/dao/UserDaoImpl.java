@@ -1,11 +1,16 @@
 package com.bisystem.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.bisystem.model.User;
@@ -14,6 +19,8 @@ import com.bisystem.model.User;
 public class UserDaoImpl implements UserDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+	
+	
 	
 	private SessionFactory sessionFactory;
 	
@@ -65,6 +72,15 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	 public List<User> getUsersByPage(int pageid, int total) {
+			Session session = this.sessionFactory.getCurrentSession();
+			 List<User> usersList =(List<User>) session.createQuery("from User").setFirstResult(pageid).setMaxResults(total).list();
+	             
+	           return usersList;
+	       
+	    }
 }
 
 

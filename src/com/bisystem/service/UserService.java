@@ -2,6 +2,9 @@ package com.bisystem.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.bisystem.model.User;
 
 public interface UserService {
@@ -11,4 +14,6 @@ public interface UserService {
 	public List<User> listUsers();
 	public User getUserById(int id);
 	public void removeUser(int id);
+	public List<User> getUsersByPage(int pageid, int total);
+	
 }

@@ -1,4 +1,42 @@
 @charset "ISO-8859-1";
+.pagination {
+  display: inline-block;
+  background: white; 	 	
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+#addInput {
+  background-image: url('searchicon.png'); 
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%; 
+  font-size: 16px;
+  padding: 12px 20px 12px 40px; 
+  border: 1px solid #ddd; 
+  margin-bottom: 12px; 
+  height:6px;
+  
+}
+
+
+
+
 
 #myInput {
   background-image: url('searchicon.png'); 
@@ -9,6 +47,7 @@
   padding: 12px 20px 12px 40px; 
   border: 1px solid #ddd; 
   margin-bottom: 12px; 
+  
 }
 
 #myTable {

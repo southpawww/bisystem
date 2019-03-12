@@ -48,7 +48,8 @@
 
   <main class="main">
     <div class="main-header">
-      <div class="main-header__heading">Hello</div>
+      <div class="main-header__heading">Hello
+      ${username}</div>
       <div class="main-header__updates">Recent Items</div>
     </div>
 

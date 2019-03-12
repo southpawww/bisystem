@@ -1,4 +1,5 @@
 /* Simple dashboard grid CSS */
+
 body {
   margin: 0;
   padding: 0;
@@ -68,7 +69,7 @@ body {
     justify-content: space-between;
     margin: 20px;
     padding: 20px;
-    height: 150px; /* Force our height since we don't have actual content yet */
+    height: 250px; 
     background-color: #e3e4e6;
     color: slategray;
   }
@@ -132,6 +133,7 @@ body {
     -webkit-column-break-inside: avoid;
     padding: 24px;
     box-sizing: border-box;
+   
   }
   
   /********************************/
