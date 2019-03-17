@@ -3,6 +3,7 @@ package com.bisystem.dao;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.bisystem.model.User;
+import com.bisystem.model.UserProfile;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -50,6 +52,9 @@ public class UserDaoImpl implements UserDao {
 		for(User p : usersList){
 			logger.info("User List::"+p);
 		}
+		 for(User user : usersList){
+	            Hibernate.initialize(user.getUserProfile());
+	        }
 		return usersList;
 	}
 	

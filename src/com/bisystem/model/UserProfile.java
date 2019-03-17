@@ -1,6 +1,7 @@
 package com.bisystem.model;
 
 import java.sql.Date;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,9 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
@@ -21,17 +26,36 @@ public class UserProfile {
 	@Id
 	@Column(name="ID_PROFILE")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "USER_PROFILE_SEQ",allocationSize = 1)
+	@SequenceGenerator(name = "id_Sequence", sequenceName = "TM_USER_SEQ4",allocationSize = 1)
 	private int id;
 	
+	@Column(name="PIC_PATH")
 	String pic_path;
+	@Column(name="CREATION_DATE")
 	Date creation_date;
+	@Column(name="LAST_LOGIN")
 	Date last_login;
+	@Column(name="NAME")
 	String name;
+	@Column(name="SURNAME")
 	String surname;
+	@Column(name="EMAIL")
 	String email;
+	@Column(name="VERSION")
 	int version;
 	
+	@OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
+	private User user;
+	
+	
+	public User getUser()
+	 {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	public int getId() {
 		return id;

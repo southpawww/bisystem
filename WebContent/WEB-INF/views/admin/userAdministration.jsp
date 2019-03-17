@@ -17,6 +17,7 @@
 		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
 		.tg .tg-4eph{background-color:#f9f9f9}
 	</style>
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="paging.js"></script>
@@ -36,9 +37,7 @@
     <a href="${pageContext.request.contextPath}/admin/usermanagement">User Management</a>
 </sec:authorize>
   <a href="javascript:document.getElementById('logout').submit()">Log out</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
+ 
 </div>
   
   </header>
@@ -81,6 +80,7 @@
 			<form:input path="id" readonly="true" size="8"  disabled="true" />
 			<form:hidden path="id" />
 		</td> 
+		
 	</tr>
 	</c:if>
 	<tr>
@@ -92,6 +92,15 @@
 		<td>
 			<form:input path="username" required="required" id="addInput"/>
 		</td> 
+		<td>
+			<form:label path="userProfile.name">
+				<spring:message text="Name"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="userProfile.name" required="required"  size="8" />
+			
+		</td>
 	</tr>
 	<tr>
 		<td>
@@ -114,6 +123,7 @@
 			<form:input path="roleId" id="addInput" required="required"/>
 		</td> 
 	</tr>
+	
 	<tr>
 		<td colspan="2">
 			<c:if test="${!empty user.username}">
@@ -138,24 +148,72 @@
 	<table id="myTable" class="tg">
 	<tr>
 		<th width="80">User ID</th>
-		<th width="120">User Name</th>
-		<th width="120">User Password</th>
-		<th width="60">Edit</th>
+		<th width="120">Username</th>
+		<th width="120">Email</th>
+		<th width="60">Profile</th>
 		<th width="60">Delete</th>
 	</tr>
 	<c:forEach items="${listUsers}" var="user">
 		<tr>
 			<td>${user.id}</td>
 			<td>${user.username}</td>
-			<td>${user.password}</td>
-			<td><a href="<c:url value='/edit/${user.id}' />" >Edit</a></td>
+			<td>${user.userProfile.email}</td>
+			<td><a href="<c:url value='/profile/${user.id}' />" >Profile</a></td>
 			<td><a href="<c:url value='/remove/${user.id}' />" >Delete</a></td>
 		</tr>
 	</c:forEach>
 	</table>
 	</div>
       </div>
-       <div class="card"><h3>User profile</h3></div>
+       <div class="card"><h3>User profile</h3>
+     <form:form action="/user/add" modelAttribute="user">
+     <c:if test="${not empty showprofile}">
+     <table id="myTable" class="tg">
+	
+		<tr>
+		<td><b>Username</b></td>
+			<td><form:input id="profile" path="username" value="${user.username}" readonly="true" class="required roChange"/></td>
+		</tr>
+		<tr>
+		<tr>
+		<td><b>Password</b></td>
+			<td><form:input id="profile" path="password" value="${user.password}" readonly="true" class="required roChange"/></td>
+		</tr>
+		<tr>
+		<td><b>Name</b></td>
+		<form:label path="username">
+				<spring:message text="Username"/>
+			</form:label>
+			<td><form:input id="profile" path="userProfile.name" value="${user.userProfile.name}" readonly="true" class="required roChange"/></td>
+		</tr>
+		<tr>
+		   <td><b>Surname</b></td>
+			<td><form:input id="profile" path="userProfile.surname" value="${user.userProfile.surname}" readonly="true" class="required roChange"/></td>
+		</tr>
+		<tr>
+		   <td><b>Email</b></td>
+		   <td><form:input id="profile" path="userProfile.email" value="${user.userProfile.email}" readonly="true" class="required roChange"/></td>
+		</tr>
+		<tr>
+		   <td><b>Role</b></td>
+		   <td><form:input id="profile" path="userProfile.email" value="${user.roleId}" readonly="true" class="required roChange"/></td>
+		</tr> 
+	</table>
+	<table>
+	<tr>
+	<td> <button id="addButton" onclick="editProfile()"><h2>Edit profile</h2></button></td>
+	<td><div id="saveButton" style="display:none;"> <form:button id="sButton" name="user"><h2>Save profile</h2></form:button></div></td>
+	</tr>
+	</table>
+      
+      
+	    </c:if>
+	    </form:form>
+
+	    
+	    
+       </div>
+     
     </div>
   </main>
 
@@ -188,7 +246,26 @@ function myFunction() {
 }
 
 
+function editProfile() {
+	  event.preventDefault();
+	var x = document.getElementById("saveButton");
+	
+	if ( $('.roChange').is('[readonly]') ) { 
+		  x.style.display = "block";
+		  $('.roChange').prop('readonly', false);
+		  
+	}
 
+	else{ 
+		
+		  $('.roChange').prop('readonly', true);
+		  x.style.display = "none";
+	}
+		
+ 
+ 
+
+}
 
 
 </script>

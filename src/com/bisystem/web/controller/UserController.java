@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -20,12 +21,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bisystem.model.User;
+import com.bisystem.model.UserProfile;
 import com.bisystem.service.UserService;
-
+import org.hibernate.SessionFactory;
 @Controller
 public class UserController {
 	
-	int rows = 6;
+	
+private SessionFactory sessionFactory;
+	
+	public void setSessionFactory(SessionFactory sf){
+		this.sessionFactory = sf;
+	}
+	
+	
 	private UserService userService;
 	
 	@Autowired(required=true)
@@ -47,8 +56,13 @@ public class UserController {
 	@RequestMapping(value = "/admin/addusers", method = RequestMethod.GET)
 	public String loadUsers(Model model) {
 		model.addAttribute("user", new User());
-		model.addAttribute("listUsers", this.userService.listUsers());
 	
+		
+		// test show profile
+		model.addAttribute("listUsers", this.userService.listUsers());
+	    model.addAttribute("name",this.userService.listUsers().get(0).getUserProfile().getName());
+	    model.addAttribute("surname",this.userService.listUsers().get(0).getUserProfile().getSurname());
+	    model.addAttribute("email",this.userService.listUsers().get(0).getUserProfile().getEmail());
 		
 		return "admin/userAdministration";
 	}
@@ -58,6 +72,8 @@ public class UserController {
 	//For add and update user both
 	@RequestMapping(value= "/user/add", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User p){
+		//UserProfile userProfile = new UserProfile();
+		//userProfile.setUser(p);
 		
 		if(p.getId() == 0){
 			//new person, add it
@@ -79,10 +95,11 @@ public class UserController {
         return "redirect:/users";
     }
  
-    @RequestMapping("/edit/{id}")
+    @RequestMapping("/profile/{id}")
     public String editUser(@PathVariable("id") int id, Model model){
         model.addAttribute("user", this.userService.getUserById(id));
-        model.addAttribute("listUser", this.userService.listUsers());
+        model.addAttribute("listUsers", this.userService.listUsers());
+        model.addAttribute("showprofile", "true");
         return "admin/userAdministration";
     }
    
