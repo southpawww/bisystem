@@ -42,7 +42,7 @@ public class User {
 	}
 	
 	public void setUserProfile(UserProfile userProfile){
-		this.userProfile = userProfile;
+		this.userProfile= userProfile;
 		
 	}
 	

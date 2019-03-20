@@ -25,6 +25,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	@Override
 	public void addUserProfile(UserProfile p) {
 		Session session = this.sessionFactory.getCurrentSession();
+		
 		session.persist(p);
 		logger.info("User saved successfully, User Details="+p);
 		

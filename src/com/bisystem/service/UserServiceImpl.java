@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bisystem.dao.UserDao;
 import com.bisystem.model.User;
+import com.bisystem.model.UserProfile;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -55,5 +56,23 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.getUsersByPage(pageid, total);
 		
 	}
-		
+	
+	@Transactional
+	public void upUser(User user) {
+        User entity = userDao.getUserById(user.getId());
+        UserProfile entityprofile = entity.getUserProfile();
+       
+        if(entity!=null){
+            entity.setUsername(user.getUsername());
+            entity.setPassword(user.getPassword());
+            entity.setRoleId(user.getRoleId());
+            entityprofile.setEmail(user.getUserProfile().getEmail());
+            entityprofile.setName(user.getUserProfile().getName());
+            entityprofile.setSurname(user.getUserProfile().getSurname());
+            
+           
+            
+        }
+    }
+	
 }

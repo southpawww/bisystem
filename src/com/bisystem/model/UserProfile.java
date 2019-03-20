@@ -1,23 +1,18 @@
 package com.bisystem.model;
 
 import java.sql.Date;
-import org.hibernate.annotations.Parameter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SequenceGenerator;
+
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
@@ -82,6 +77,15 @@ public class UserProfile {
 	public void setCreation_date(Date creation_date){
 		 this.creation_date=creation_date;
 	}
+	
+	public Date getLast_login() {
+		return last_login;
+	}
+	
+	public void setLast_login(Date last_login) {
+		this.last_login= last_login;
+	}
+	
 	
 	public String getName(){
 		return name;

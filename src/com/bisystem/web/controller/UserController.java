@@ -1,6 +1,9 @@
 package com.bisystem.web.controller;
 
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,7 +75,6 @@ public class UserController {
 	//For add and update user both
 	@RequestMapping(value= "/user/add", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User p){
-		
 		UserProfile up = p.getUserProfile();
 		up.setUser(p);
 		p.setUserProfile(up);
@@ -83,12 +85,14 @@ public class UserController {
 			return "redirect:/users?action=added";
 		}else{
 			//existing person, call update
+			//User user = this.userService.getUserById(p.getId());
 			
-			this.userService.updateUser(p);
+			this.userService.upUser(p);
+			
+			//this.userService.updateUser(p);
 			return "redirect:/users?action=edited";
 		}
-		
-	
+
 		
 	}
 	
@@ -96,7 +100,7 @@ public class UserController {
     public String removeUser(@PathVariable("id") int id){
 		
         this.userService.removeUser(id);
-        return "redirect:/users";
+        return "redirect:/addusers";
     }
  
     @RequestMapping("/profile/{id}")

@@ -16,4 +16,6 @@ public interface UserService {
 	public void removeUser(int id);
 	public List<User> getUsersByPage(int pageid, int total);
 	
+	public void upUser(User user);
+	
 }
