@@ -40,6 +40,13 @@
 	<beans:bean id="userService" class="com.bisystem.service.UserServiceImpl">
 		<beans:property name="userDao" ref="userDao"></beans:property>
 	</beans:bean>
+	<beans:bean id="userProfileDao" class="com.bisystem.dao.UserProfileDaoImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="userProfileService" class="com.bisystem.service.UserProfileServiceImpl">
+		<beans:property name="userProfileDao" ref="userProfileDao"></beans:property>
+	</beans:bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	

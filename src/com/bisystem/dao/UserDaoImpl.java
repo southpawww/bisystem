@@ -41,6 +41,7 @@ public class UserDaoImpl implements UserDao {
 	public void updateUser(User p) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(p);
+		//session.saveOrUpdate(p);
 		logger.info("User updated successfully, User Details="+p);
 	}
 	

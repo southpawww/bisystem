@@ -72,8 +72,8 @@
 	<c:if test="${!empty user.username}">
 	<tr>
 		<td>
-			<form:label path="id">
-				<spring:message text="ID"/>
+			<form:label path="id" style="color:black;  font-weight: bold;">
+				<spring:message text="ID:"/>
 			</form:label>
 		</td>
 		<td>
@@ -85,43 +85,58 @@
 	</c:if>
 	<tr>
 		<td>
-			<form:label path="username">
-				<spring:message text="Username"/>
+			<form:label path="username" style="color:black;  font-weight: bold;">
+				<spring:message text="Username:"/>
 			</form:label>
 		</td>
 		<td>
 			<form:input path="username" required="required" id="addInput"/>
 		</td> 
 		<td>
-			<form:label path="userProfile.name">
-				<spring:message text="Name"/>
+			<form:label path="userProfile.name" style="color:black;  font-weight: bold;">
+				<spring:message text="Name:"/>
 			</form:label>
 		</td>
 		<td>
-			<form:input path="userProfile.name" required="required"  size="8" />
-			
+			<form:input path="userProfile.name"  id="addInput"  required="required"  />
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<form:label path="password">
-				<spring:message text="Password"/>
+			<form:label path="password" style="color:black;  font-weight: bold;">
+				<spring:message text="Password:"/>
 			</form:label>
 		</td>
 		<td>
 			<form:input path="password" required="required" id="addInput" />
 		</td>
+		<td>
+			<form:label path="userProfile.surname" style="color:black;  font-weight: bold;">
+				<spring:message text="Surname:"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="userProfile.surname"  id="addInput"  required="required"   />
+		</td>
 	</tr>
 	
 	<tr>
 		<td>
-			<form:label path="roleId">
-				<spring:message text="Role"/>
+			<form:label path="roleId" style="color:black;  font-weight: bold;">
+				<spring:message text="Role:"/>
 			</form:label>
 		</td>
 		<td>
 			<form:input path="roleId" id="addInput" required="required"/>
 		</td> 
+		<td>
+			<form:label path="userProfile.email" style="color:black;  font-weight: bold;">
+				<spring:message text="Email:"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="userProfile.email"  id="addInput" required="required"   />
+		</td>
 	</tr>
 	
 	<tr>
@@ -166,7 +181,7 @@
 	</div>
       </div>
        <div class="card"><h3>User profile</h3>
-     <form:form action="/user/add" modelAttribute="user">
+     <form:form action="${addAction}" modelAttribute="user">
      <c:if test="${not empty showprofile}">
      <table id="myTable" class="tg">
 	

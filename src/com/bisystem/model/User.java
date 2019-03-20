@@ -3,6 +3,7 @@ package com.bisystem.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,8 @@ public class User {
 	
     @Id
 	@Column(name="ID_USER")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+	@SequenceGenerator(name = "id_Sequence", sequenceName = "TM_USER_SEQ4",allocationSize = 1)
 	private int id;
 	
 	private String username;
@@ -30,9 +33,8 @@ public class User {
 	private int role_Id;
 
 	
-	@OneToOne
-    @MapsId
-    @JoinColumn(name = "ID_USER")
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "user")
 	private UserProfile userProfile;
 	
 	public UserProfile getUserProfile(){

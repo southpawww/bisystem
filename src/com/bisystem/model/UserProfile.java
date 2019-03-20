@@ -6,6 +6,7 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +26,7 @@ public class UserProfile {
 
 	@Id
 	@Column(name="ID_PROFILE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "TM_USER_SEQ4",allocationSize = 1)
+	//@GeneratedValue
 	private int id;
 	
 	@Column(name="PIC_PATH")
@@ -44,7 +44,9 @@ public class UserProfile {
 	@Column(name="VERSION")
 	int version;
 	
-	@OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ID_PROFILE")
+	@MapsId
 	private User user;
 	
 	
