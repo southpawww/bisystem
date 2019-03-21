@@ -26,18 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bisystem.model.User;
 import com.bisystem.model.UserProfile;
 import com.bisystem.service.UserService;
-import com.bisystem.service.UserProfileService;
-import org.hibernate.SessionFactory;
+
 @Controller
 public class UserController {
-	
-	
 
-	
-	
-	
 	private UserService userService;
-	private UserProfileService  userProfileService;
 	
 	@Autowired(required=true)
 	@Qualifier(value="userService")
@@ -46,7 +39,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String listUsers(Model model,@RequestParam("action")	 String requestParam){
+	public String listUsers(Model model,@RequestParam(required = false, name="action")	 String requestParam ){
 		model.addAttribute("user", new User());
 		model.addAttribute("listUsers", this.userService.listUsers());
 		
@@ -57,16 +50,10 @@ public class UserController {
 	
 	@RequestMapping(value = "/admin/addusers", method = RequestMethod.GET)
 	public String loadUsers(Model model) {
-		model.addAttribute("user", new User());
-	
-		 model.addAttribute("showprofile", "true");
-		// test show profile
-		 
-		model.addAttribute("listUsers", this.userService.listUsers());
-	    model.addAttribute("name",this.userService.listUsers().get(0).getUserProfile().getName());
-	    model.addAttribute("surname",this.userService.listUsers().get(0).getUserProfile().getSurname());
-	    model.addAttribute("email",this.userService.listUsers().get(0).getUserProfile().getEmail());
 		
+		model.addAttribute("user", new User()); 
+		model.addAttribute("listUsers", this.userService.listUsers());
+	   		
 		return "admin/userAdministration";
 	}
 	
@@ -78,61 +65,48 @@ public class UserController {
 		UserProfile up = p.getUserProfile();
 		up.setUser(p);
 		p.setUserProfile(up);
-		if(p.getId() == 0){
+		
 			//new person, add it
 		
 			this.userService.addUser(p);
-			return "redirect:/users?action=added";
-		}else{
-			//existing person, call update
-			//User user = this.userService.getUserById(p.getId());
-			
-			this.userService.upUser(p);
-			
-			//this.userService.updateUser(p);
-			return "redirect:/users?action=edited";
-		}
-
+	    	return "redirect:/users?action=added";
 		
 	}
 	
+	@RequestMapping(value= "/user/edit", method = RequestMethod.POST)
+	public String updateUser(@ModelAttribute("userProfile") User p){
+		
+			
+			//existing person, call update
+	    	UserProfile up = p.getUserProfile();
+	    	up.setUser(p);
+		    p.setUserProfile(up);
+			this.userService.upUser(p);
+			return "redirect:/users?action=edited";
+		
+	}
+
+	
+	
+	
 	@RequestMapping("/remove/{id}")
-    public String removeUser(@PathVariable("id") int id){
+    public String removeUser(@PathVariable("id") int id, Model model,@ModelAttribute("user") User p){
 		
         this.userService.removeUser(id);
-        return "redirect:/addusers";
+        
+        return "redirect:/users?action=deleted";
     }
  
     @RequestMapping("/profile/{id}")
-    public String editUser(@PathVariable("id") int id, Model model){
-        model.addAttribute("user", this.userService.getUserById(id));
+    public String editUser(@PathVariable("id") int id, Model model,@ModelAttribute("user") User p){
+        model.addAttribute("userProfile", this.userService.getUserById(id));
         model.addAttribute("listUsers", this.userService.listUsers());
         model.addAttribute("showprofile", "true");
         return "admin/userAdministration";
     }
    
-    
-    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Hello World");
-		model.addObject("message", "This is protected page!");
-		model.setViewName("admin");
-
-		return model;
-
-	}
-    /*
-    //controllers for test:
-    @RequestMapping(value = {"/adminPage"}, method = RequestMethod.GET)
-	public ModelAndView adminPage() {
-		ModelAndView model = new ModelAndView();
-		model.setViewName("adminPage");
-		return model;
-	}
-    */
-   
+  
+  
 }
     
     

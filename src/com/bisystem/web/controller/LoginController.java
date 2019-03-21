@@ -30,20 +30,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 public class LoginController {
-   /* 
-    @Autowired(required=true)
-    @Qualifier("loginDao")
-	LoginService loginService;
-   
-*/
+
 	@Autowired
-   // @Qualifier("loginService")
 	private LoginService loginService;
-	/*
-	public void setLoginDao(LoginService loginService) {
-		this.loginService = loginService;
-	}
-	*/
+	
 	 @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
 	  @ModelAttribute("login") Login login,ModelMap model) {

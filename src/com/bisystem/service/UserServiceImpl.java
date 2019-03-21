@@ -70,8 +70,6 @@ public class UserServiceImpl implements UserService {
             entityprofile.setName(user.getUserProfile().getName());
             entityprofile.setSurname(user.getUserProfile().getSurname());
             
-           
-            
         }
     }
 	

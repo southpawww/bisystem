@@ -181,37 +181,46 @@
 	</div>
       </div>
        <div class="card"><h3>User profile</h3>
-     <form:form action="${addAction}" modelAttribute="user">
+        <c:url var="updateAction" value="/user/edit" ></c:url>
+     <form:form action="${updateAction}" modelAttribute="userProfile">
      <c:if test="${not empty showprofile}">
      <table id="myTable" class="tg">
-	
+	    <tr>
+		<td>
+			<form:label path="id" style="color:black;  font-weight: bold;">
+				<spring:message text="ID:"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input id="profile" path="id" readonly="true"  disabled="true" />
+			<form:hidden path="id" />
+		</td> 
+		
+	</tr>
 		<tr>
 		<td><b>Username</b></td>
-			<td><form:input id="profile" path="username" value="${user.username}" readonly="true" class="required roChange"/></td>
+			<td><form:input id="profile" path="username"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
 		<tr>
 		<td><b>Password</b></td>
-			<td><form:input id="profile" path="password" value="${user.password}" readonly="true" class="required roChange"/></td>
+			<td><form:input id="profile" path="password"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
 		<td><b>Name</b></td>
-		<form:label path="username">
-				<spring:message text="Username"/>
-			</form:label>
-			<td><form:input id="profile" path="userProfile.name" value="${user.userProfile.name}" readonly="true" class="required roChange"/></td>
+			<td><form:input id="profile" path="userProfile.name"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
 		   <td><b>Surname</b></td>
-			<td><form:input id="profile" path="userProfile.surname" value="${user.userProfile.surname}" readonly="true" class="required roChange"/></td>
+			<td><form:input id="profile" path="userProfile.surname"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
 		   <td><b>Email</b></td>
-		   <td><form:input id="profile" path="userProfile.email" value="${user.userProfile.email}" readonly="true" class="required roChange"/></td>
+		   <td><form:input id="profile" path="userProfile.email"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
 		   <td><b>Role</b></td>
-		   <td><form:input id="profile" path="userProfile.email" value="${user.roleId}" readonly="true" class="required roChange"/></td>
+		   <td><form:input id="profile" path="roleId"  readonly="true" class="required roChange"/></td>
 		</tr> 
 	</table>
 	<table>
