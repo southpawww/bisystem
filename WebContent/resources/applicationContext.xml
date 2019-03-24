@@ -23,6 +23,7 @@
 			<beans:list>
 				<beans:value>com.bisystem.model.User</beans:value>
 				<beans:value>com.bisystem.model.UserProfile</beans:value>
+				<beans:value>com.bisystem.model.Sales</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -32,6 +33,7 @@
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
 			</beans:props>
 		</beans:property>
+		
 	</beans:bean>
 	
 	<beans:bean id="userDao" class="com.bisystem.dao.UserDaoImpl">
@@ -47,6 +49,20 @@
 	<beans:bean id="userProfileService" class="com.bisystem.service.UserProfileServiceImpl">
 		<beans:property name="userProfileDao" ref="userProfileDao"></beans:property>
 	</beans:bean>
+	
+	<beans:bean id="canvasjsChartDao" class="com.bisystem.dao.CanvasjsChartDaoImpl">
+	</beans:bean>
+	<beans:bean id="canvasjsChartService" class="com.bisystem.service.CanvasjsChartServiceImpl">
+		<beans:property name="canvasjsChartDao" ref="canvasjsChartDao"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="salesDao" class="com.bisystem.dao.SalesDaoImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="salesService" class="com.bisystem.service.SalesServiceImpl">
+		<beans:property name="salesDao" ref="salesDao"></beans:property>
+	</beans:bean>
+	
 
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	

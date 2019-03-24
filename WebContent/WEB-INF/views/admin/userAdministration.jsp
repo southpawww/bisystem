@@ -4,10 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
+<meta charset="UTF-8">
 <link href="<c:url value="/resources/test_page.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/admPage.css" />" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,7 +22,7 @@
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-<script src="paging.js"></script>
+
 
 </head>
 <body>
@@ -127,7 +129,10 @@
 			</form:label>
 		</td>
 		<td>
-			<form:input path="roleId" id="addInput" required="required"/>
+		  <form:select path = "roleId" class="required" id="select-roles">
+          <form:option value= "0" label = "Select"/>
+          <form:options items = "${rolesList}" />
+          </form:select> 
 		</td> 
 		<td>
 			<form:label path="userProfile.email" style="color:black;  font-weight: bold;">
@@ -141,12 +146,10 @@
 	
 	<tr>
 		<td colspan="2">
-			<c:if test="${!empty user.username}">
-				 <form:button id="addButton" name="user"><h2>Edit user</h2></form:button>
-			</c:if>
-			<c:if test="${empty user.username}">
+			
+			
 				  <form:button id="addButton" name="user"><h2>Create user</h2></form:button>
-			</c:if>
+			
 		</td>
 	</tr>
 </table>	
@@ -204,23 +207,29 @@
 		<tr>
 		<tr>
 		<td><b>Password</b></td>
-			<td><form:input id="profile" path="password"  readonly="true" class="required roChange"/></td>
+		 <td><form:input id="profile" path="password"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
-		<td><b>Name</b></td>
-			<td><form:input id="profile" path="userProfile.name"  readonly="true" class="required roChange"/></td>
+		 <td><b>Name</b></td>
+		 <td><form:input id="profile" path="userProfile.name"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
-		   <td><b>Surname</b></td>
-			<td><form:input id="profile" path="userProfile.surname"  readonly="true" class="required roChange"/></td>
+		 <td><b>Surname</b></td>
+		 <td><form:input id="profile" path="userProfile.surname"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
 		   <td><b>Email</b></td>
 		   <td><form:input id="profile" path="userProfile.email"  readonly="true" class="required roChange"/></td>
 		</tr>
 		<tr>
-		   <td><b>Role</b></td>
-		   <td><form:input id="profile" path="roleId"  readonly="true" class="required roChange"/></td>
+		 <td><b>Role</b></td>
+		 <td>
+	      <form:select path = "roleId" disabled="true" class="required roRoles" >
+          <form:option value= "0" label = "Select"/>
+          <form:options items = "${rolesList}" />
+          </form:select> 
+		 </td>
+		 
 		</tr> 
 	</table>
 	<table>
@@ -233,8 +242,15 @@
       
 	    </c:if>
 	    </form:form>
-
-	    
+      <td>čččč</td>
+	    <c:forEach items="${salesList}" var="object">
+		<tr>
+			<td>${object[0]}</td>
+			<td>${object[1]}</td>
+			<td>AAA</td>
+			
+		</tr>
+	</c:forEach>
 	    
        </div>
      
@@ -277,12 +293,14 @@ function editProfile() {
 	if ( $('.roChange').is('[readonly]') ) { 
 		  x.style.display = "block";
 		  $('.roChange').prop('readonly', false);
+		  $('.roRoles').prop('disabled', false);
 		  
 	}
 
 	else{ 
 		
 		  $('.roChange').prop('readonly', true);
+		  $('.roRoles').prop('disabled', true);
 		  x.style.display = "none";
 	}
 		

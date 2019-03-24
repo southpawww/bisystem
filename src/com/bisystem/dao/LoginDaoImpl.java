@@ -30,7 +30,7 @@ public class LoginDaoImpl implements LoginDao {
 	   
 		List<AppUser> users = jdbcTemplate.query(sql, new UserMapper());
 		
-
+         
 	    return users.size() > 0 ? users.get(0) : null;
 	    
 	   

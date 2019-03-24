@@ -2,13 +2,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
 
 <head>
 <link href="<c:url value="/resources/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/test_page.css" />" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
 <div class="grid-container">
@@ -73,9 +74,17 @@
     </div>
 
     <div class="main-cards">
-      <div class="card">Chart #1</div>
+      <div class="card">
+      <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+      </div>
       <div class="card">Chart #2</div>
-      <div class="card">Chart #3</div>
+
+      <div class="card">
+       <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+       <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+      
+      </div>
     </div>
   </main>
 
@@ -105,7 +114,129 @@
                 </table>
             </form:form>
 -->
-</div>
+
  </body>
+ <script type="text/javascript">
+window.onload = function() {
+ 
+var dps = [[]];
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2", // "light1", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Monthly Sales"
+	},
+	data: [{
+		type: "pie",
+		showInLegend: "true",
+		legendText: "{label}",
+		yValueFormatString: "#,###\" \"",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}",
+		dataPoints: dps[0]
+	}]
+});
+ 
+var yValue;
+var label;
+ 
+<c:forEach items="${dataPointsList}" var="dataPoints" varStatus="loop">	
+	<c:forEach items="${dataPoints}" var="dataPoint">
+		yValue = parseFloat("${dataPoint.y}");
+		label = "${dataPoint.label}";
+		dps[parseInt("${loop.index}")].push({
+			label : label,
+			y : yValue,
+		});		
+	</c:forEach>	
+</c:forEach> 
+ 
+chart.render();
+
+
+
+
+
+var dps = [[], [], [], []];
+var chart = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	exportEnabled: true,
+	title: {
+		text: "Sales by county"
+	},
+	axisY: {
+		includeZero: false,
+		title: "Sold products"	
+	},
+	 
+	legend:{
+		cursor: "pointer",
+		itemclick: toggleDataSeries
+	},
+	toolTip: {
+		shared: true
+	},
+	data: [{
+		type: "stackedBar",
+		name: "Local Calls",
+		showInLegend: true,
+	
+		dataPoints: dps[0]
+	},{
+		type: "stackedBar",
+		name: "Call to Mobile",
+		showInLegend: true,
+		
+		dataPoints: dps[1]
+	},{
+		type: "stackedBar",
+		name: "International Call",
+		showInLegend: true,
+		
+		dataPoints: dps[2]
+	},{
+		type: "stackedBar",
+		name: "Other Calls",
+		showInLegend: true,
+		
+		dataPoints: dps[3]
+	}]
+});
+function toggleDataSeries(e){
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	}
+	else{
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+}
+ 
+var xValue;
+var yValue;
+var label;
+<c:forEach items="${dataPointsListCounty}" var="dataPoints" varStatus="loop">	
+	<c:forEach items="${dataPoints}" var="dataPoint">
+	label = "${dataPoint.label}";	
+	xValue = parseInt("${dataPoint.x}");
+		yValue = parseFloat("${dataPoint.y}");
+		dps[parseInt("${loop.index}")].push({
+			label: label,
+			x : xValue,
+			y : yValue
+		});		
+	</c:forEach>	
+</c:forEach> 
+
+}
+
+
+
+
+
+
+</script>
+
  </html>
  

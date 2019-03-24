@@ -66,4 +66,19 @@
  <beans:bean id="loginService" class="com.bisystem.service.LoginServiceImpl">
  	<beans:property name="loginDao" ref="loginDao"></beans:property>
  </beans:bean>
+ 
+ <beans:bean id="canvasjsChartDao" class="com.bisystem.dao.CanvasjsChartDaoImpl">
+	</beans:bean>
+	<beans:bean id="canvasjsChartService" class="com.bisystem.service.CanvasjsChartServiceImpl">
+		<beans:property name="canvasjsChartDao" ref="canvasjsChartDao"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="salesDao" class="com.bisystem.dao.SalesDaoImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="salesService" class="com.bisystem.service.SalesServiceImpl">
+		<beans:property name="salesDao" ref="salesDao"></beans:property>
+	</beans:bean>
+ 
+ 
 </beans:beans>

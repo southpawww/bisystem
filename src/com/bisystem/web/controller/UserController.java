@@ -4,7 +4,9 @@ package com.bisystem.web.controller;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -25,12 +27,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bisystem.model.User;
 import com.bisystem.model.UserProfile;
+import com.bisystem.service.SalesService;
 import com.bisystem.service.UserService;
 
 @Controller
 public class UserController {
 
 	private UserService userService;
+	private SalesService salesService;
+	
+	@Autowired(required=true)
+	@Qualifier(value="salesService")
+	public void setSalesService(SalesService ps){
+		this.salesService = ps;
+	}
+	
+	
 	
 	@Autowired(required=true)
 	@Qualifier(value="userService")
@@ -53,11 +65,19 @@ public class UserController {
 		
 		model.addAttribute("user", new User()); 
 		model.addAttribute("listUsers", this.userService.listUsers());
-	   		
+		model.addAttribute("salesList",this.salesService.listSales());	
 		return "admin/userAdministration";
 	}
 	
-	
+	 @ModelAttribute("rolesList")
+	   public Map<Integer, String> getRolesList() {
+	      Map<Integer, String> rolesList = new HashMap<Integer, String>();
+	      rolesList.put(1, "Admin");
+	      rolesList.put(2, "Main User");
+	      
+	  
+	      return rolesList;
+	   }
 	
 	//For add and update user both
 	@RequestMapping(value= "/user/add", method = RequestMethod.POST)

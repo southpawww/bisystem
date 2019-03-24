@@ -4,6 +4,9 @@ package com.bisystem.web.controller;
 
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bisystem.model.Login;
 import com.bisystem.model.User;
+import com.bisystem.service.CanvasjsChartService;
 import com.bisystem.service.LoginService;
+import com.bisystem.service.SalesService;
 import com.bisystem.service.UserService;
 import com.bisystem.model.AppUser;
 
@@ -33,6 +38,18 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+    private SalesService salesService;
+	
+	@Autowired(required=true)
+	@Qualifier(value="salesService")
+	public void setSalesService(SalesService ps){
+		this.salesService = ps;
+	}
+	
+	@Autowired(required=true)
+	private CanvasjsChartService canvasjsChartService;
+	//List<List<Map<Object, Object>>> canvasjsDataList = canvasjsChartService.getCanvasjsChartData();
+	
 	
 	 @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
@@ -65,13 +82,21 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = { "/homePage"}, method = RequestMethod.GET)
-	public ModelAndView homePage(@ModelAttribute("login") Login login,ModelMap modell) {
+	public ModelAndView homePage(@ModelAttribute("login") Login login,ModelMap modell,ModelMap modelMap) {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("homePage");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String name = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
 	    UserDetails userDetails = (UserDetails)auth.getPrincipal();
 	    modell.addAttribute("username",userDetails.getUsername());
+	    modell.addAttribute("salesList",salesService.listSales());
+	    
+	    //chart of product sales
+	    
+		modell.addAttribute("dataPointsList", canvasjsChartService.getCanvasjsChartData());
+		modell.addAttribute("dataPointsListCounty", canvasjsChartService.getCountyChart());
+		
+		
 		return model;
 	}
 	

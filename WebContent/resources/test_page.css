@@ -8,6 +8,9 @@ body {
   box-sizing: border-box;
 }
 /* Assign grid instructions to our parent grid container */
+
+
+
 .grid-container {
   display: grid;
   grid-template-columns: 50px 1fr;
@@ -144,7 +147,7 @@ body {
     height: 485px;
   }
   .card:nth-child(3) {
-    height: 265px;
+    height: 350px;
   }
   
   
