@@ -8,4 +8,5 @@ public interface SalesService {
 
 	public List<Object[]> listSales();
 	public List<Object[]> getAllProducts();
+	public List<Object[]> getCountySales(String county);
 }

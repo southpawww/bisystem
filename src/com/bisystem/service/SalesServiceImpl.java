@@ -32,4 +32,11 @@ private SalesDao salesDao;
 		return this.salesDao.getAllProducts();
 	}
 
+
+	@Override
+	@Transactional
+	public List<Object[]> getCountySales(String county) {
+		return this.salesDao.getCountySales(county);
+	}
+
 }

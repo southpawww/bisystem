@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/views/admin/userAdministration.jsp=UTF-8
+encoding//src/com/bisystem/dao/CanvasjsChartDaoImpl.java=UTF-8
+encoding//src/com/bisystem/dao/SalesDaoImpl.java=UTF-8

@@ -195,12 +195,6 @@ var chart = new CanvasJS.Chart("chartContainer2", {
 		showInLegend: true,
 		
 		dataPoints: dps[2]
-	},{
-		type: "stackedBar",
-		name: "Other Calls",
-		showInLegend: true,
-		
-		dataPoints: dps[3]
 	}]
 });
 function toggleDataSeries(e){

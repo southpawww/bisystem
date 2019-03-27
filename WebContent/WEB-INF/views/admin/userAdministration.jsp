@@ -242,15 +242,8 @@
       
 	    </c:if>
 	    </form:form>
-      <td>čččč</td>
-	    <c:forEach items="${salesList}" var="object">
-		<tr>
-			<td>${object[0]}</td>
-			<td>${object[1]}</td>
-			<td>AAA</td>
-			
-		</tr>
-	</c:forEach>
+      
+	
 	    
        </div>
      

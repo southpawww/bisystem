@@ -1,6 +1,7 @@
 package com.bisystem.dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,56 +45,40 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 	static List<Map<Object,Object>> dataPoints1c = new ArrayList<Map<Object,Object>>();
 	static List<Map<Object,Object>> dataPoints2c = new ArrayList<Map<Object,Object>>();
 	static List<Map<Object,Object>> dataPoints3c = new ArrayList<Map<Object,Object>>();
-	static List<Map<Object,Object>> dataPoints4c= new ArrayList<Map<Object,Object>>();
+	static List<Map<Object, Object>>dataPoints4c= new ArrayList<Map<Object,Object>>();
+      
+	
+	
+	
 	@Override
 	public List<List<Map<Object, Object>>> getCountyChart() {
-        
-		dataPoints1c.clear();
-		dataPoints2c.clear();
-		dataPoints3c.clear();
-		dataPoints4c.clear();		
-		for(int i =0;i< this.salesService.getAllProducts().size();i++)
-		{
-			
+     	
+		
+	   if(!listCounty.isEmpty()){
+  	   listCounty.clear();
+	   }
+	   
+		for(int i =0; i< this.salesService.getAllProducts().size();i++){
+		
+			listCounty.add(new ArrayList<Map<Object,Object>>());
 		}
-	//	mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 1262284200000L); mapCounty.put("y", 0.1);dataPoints1c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", this.salesService.getAllProducts().get(0)[1]); mapCounty.put("x", 7); mapCounty.put("y", this.salesService.getAllProducts().get(0)[0]);dataPoints1c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", "Žilinský kraj"); mapCounty.put("x", 3); mapCounty.put("y", 0.4);dataPoints1c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 4); mapCounty.put("y", 0.4);dataPoints1c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 5); mapCounty.put("y", 0.4);dataPoints1c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 6); mapCounty.put("y", 0.4);dataPoints1c.add(mapCounty);
- 
-		//mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 1); mapCounty.put("y", 0.1);dataPoints2c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", "Bratislavský kraj"); mapCounty.put("x", 1); mapCounty.put("y", 35);dataPoints2c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", "Žilinský kraj"); mapCounty.put("x", 3); mapCounty.put("y", 0.1);dataPoints2c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 4); mapCounty.put("y", 0.1);dataPoints2c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 5); mapCounty.put("y", 0.1);dataPoints2c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 6); mapCounty.put("y", 0.2);dataPoints2c.add(mapCounty);
- 
-	 //   mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 1); mapCounty.put("y", 0.3);dataPoints3c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", "Bratislavský kraj"); mapCounty.put("x", "Bratislavský kraj"); mapCounty.put("y", 0.4);dataPoints3c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", "Žilinský kraj"); mapCounty.put("x", 3); mapCounty.put("y", 0.4);dataPoints3c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 7); mapCounty.put("y", 0.3);dataPoints3c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 5); mapCounty.put("y", 0.4);dataPoints3c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 6); mapCounty.put("y", 0.4);dataPoints3c.add(mapCounty);
- 
-	//	mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 1); mapCounty.put("y", 0.4);dataPoints4c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", "Bratislavský kraj"); mapCounty.put("x", "Bratislavský kraj"); mapCounty.put("y", 0.5);dataPoints4c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>();mapCounty.put("label", "Žilinský kraj"); mapCounty.put("x", 3); mapCounty.put("y", 0.6);dataPoints4c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 4); mapCounty.put("y", 0.7);dataPoints4c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 5); mapCounty.put("y", 0.8);dataPoints4c.add(mapCounty);
-		mapCounty = new HashMap<Object,Object>(); mapCounty.put("x", 6); mapCounty.put("y", 0.8);dataPoints4c.add(mapCounty);
+		List<Object[]> countySales;
+		for(int i =0; i< this.salesService.getAllProducts().size();i++){
+			
+			countySales = this.salesService.getCountySales((String)this.salesService.getAllProducts().get(i)[0]);
+			for(int j =0; j< 8;j++){
+			
+				mapCounty = new HashMap<Object,Object>();
+				mapCounty.put("label",countySales.get(j)[0]); 
+				mapCounty.put("x", j+1); 
+				mapCounty.put("y", countySales.get(j)[1]); 
+				listCounty.get(i).add(mapCounty);    
+			}	
+			countySales.clear();		
+	    }
 	
-		listCounty.add(dataPoints1c);
-		listCounty.add(dataPoints2c);
-		listCounty.add(dataPoints3c);
-		listCounty.add(dataPoints4c);
 		return listCounty;
-	}
-	
-	
-	
-	
+    }
 	
 	
 	
