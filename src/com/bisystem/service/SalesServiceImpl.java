@@ -39,4 +39,17 @@ private SalesDao salesDao;
 		return this.salesDao.getCountySales(county);
 	}
 
+
+	@Override
+	@Transactional
+	public List<Object[]> getTopBranches(String date) {
+		return this.salesDao.getTopBranches(date);
+	}
+
+
+	@Override
+	public List<Object[]> getTopSalers(String date) {
+		return this.salesDao.getTopSellers(date);
+	}
+
 }

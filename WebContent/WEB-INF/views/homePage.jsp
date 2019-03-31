@@ -8,8 +8,15 @@
 <head>
 <link href="<c:url value="/resources/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/test_page.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/adm_page.css" />" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+ <style type="text/css">
+		.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+		.tg .tg-4eph{background-color:#f9f9f9}
+	</style>
 </head>
 <body>
 <div class="grid-container">
@@ -49,6 +56,8 @@
 
   <main class="main">
     <div class="main-header">
+    <div id="chartContainer3" style="height: 250px; width: 100%;"></div>
+       <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
       <div class="main-header__heading">Hello
       ${username}</div>
       <div class="main-header__updates">Recent Items</div>
@@ -78,12 +87,55 @@
       <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 	 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
       </div>
-      <div class="card">Chart #2
-      ${datetime}</div>
+      <div class="card">
+      <h3><font color="black">Top 10 Branches </font></h3>
+<div style="height:400px;width: 100%;">
+	<table id="myTable" class="tg" style="width: 100%;">
+	<tr>
+		<th width="120">Branch</th>
+		<th width="120">Number of sales</th>
+	</tr>
+	<c:forEach items="${listBranches}" var="branches" varStatus="loop">	
+	<c:forEach items="${branches}" var="object">
+		<tr>
+			<td>${object.name}</td>
+			<td>${object.sales}</td>
+		</tr>	
+	</c:forEach>	
+</c:forEach> 
+	
+
+	</table>
+	</div>
+     
+     </div>
 
       <div class="card">
        <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+      
+      </div>
+      <div class="card">
+       <h3><font color="black">Top 10 Sellers </font></h3>
+<div style="height:400px;width: 100%;">
+	<table id="myTable" class="tg" style="width: 100%;">
+	<tr>
+		<th width="120">Name</th>
+		<th width="120">Surname</th>
+		<th width="120">Number of sales</th>
+	</tr>
+	<c:forEach items="${listSellers}" var="branches" varStatus="loop">	
+	<c:forEach items="${branches}" var="object">
+		<tr>
+			<td>${object.name}</td>
+			<td>${object.surname}</td>
+			<td>${object.sales}</td>
+		</tr>	
+	</c:forEach>	
+</c:forEach> 
+	
+
+	</table>
       
       </div>
     </div>
@@ -236,6 +288,67 @@ var label;
 		});		
 	</c:forEach>	
 </c:forEach> 
+
+
+
+var dps = [[],[],[]];
+var chartYear = new CanvasJS.Chart("chartContainer3", {
+	theme: "light2", // "light1", "dark1", "dark2"
+	animationEnabled: true,
+	title: {
+		text: "Diamond Production: 2006 - 2016"
+	},
+	axisX: {
+		valueFormatString: "YYYY"
+	},
+	axisY: {
+		title: "Volume (in million carats)"
+	},
+	legend: {
+		cursor: "pointer",
+		itemclick: toggleDataSeries,
+		verticalAlign: "top"
+	},
+	data: [{
+		type: "area",
+		name: "Russia",
+		showInLegend: true,
+		xValueType: "dateTime",
+		xValueFormatString: "YYYY",
+		yValueFormatString: "#,##0.0mn carats",
+		dataPoints: dps[0]
+	},{
+		type: "area",
+		name: "Congo",
+		showInLegend: true,
+		xValueType: "dateTime",
+		xValueFormatString: "YYYY",
+		yValueFormatString: "#,##0.0mn carats",
+		dataPoints: dps[1]
+	},{
+		type: "area",
+		name: "Australia",
+		showInLegend: true,
+		xValueType: "dateTime",
+		xValueFormatString: "YYYY",
+		yValueFormatString: "#,##0.0mn carats",
+		dataPoints: dps[2]
+	}]
+});
+var yValue;
+var xValue;
+
+<c:forEach items="${yearList}" var="dataPoints" varStatus="loop">
+<c:forEach items="${dataPoints}" var="dataPoint">
+	yValue = parseFloat("${dataPoint.y}");
+	xValue = parseFloat("${dataPoint.x}");
+	dps[parseInt("${loop.index}")].push({
+		x : xValue,
+		y : yValue,
+	});
+</c:forEach>
+</c:forEach>
+
 
 }
 

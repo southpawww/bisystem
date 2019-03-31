@@ -94,13 +94,13 @@ public class LoginController {
 	    modell.addAttribute("salesList",salesService.listSales());
 	    
 	    //chart of product sales
-	    
+
+
 		modell.addAttribute("dataPointsList", canvasjsChartService.getCanvasjsChartData());
 		modell.addAttribute("dataPointsListCounty", canvasjsChartService.getCountyChart());
-		Date date = new Date();
-		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyy");
-		String a = ft.format(date);
-		modell.addAttribute("datetime", a );
+		modell.addAttribute("listBranches", canvasjsChartService.getTopBranches());
+		modell.addAttribute("listSellers", canvasjsChartService.getTopSellers());
+		modell.addAttribute("yearList", canvasjsChartService.getYearSales());
 		
 		
 		return model;

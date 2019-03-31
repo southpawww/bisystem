@@ -1,5 +1,7 @@
 package com.bisystem.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -24,14 +26,22 @@ public class SalesDaoImpl implements SalesDao {
 		this.sessionFactory = sf;
 	}
 	
+	private String getMonthString() {
+		
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat ("01-MMM-yy");
+		String a = ft.format(date);
+		
+		return a;
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> listSales() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Object[]> salesList =(List<Object[]>) session.createSQLQuery("select nazov as nazov_produktu, count(*) as pocet from predaj\r\n" + 
-				"join produkt  on produkt.id_produkt=predaj.produkt_id\r\n" + 
-				"group by produkt_id, nazov").list();
+				"join produkt  on produkt.id_produkt=predaj.produkt_id and predaj.time >= :date \r\n" + 
+				"group by produkt_id, nazov").setParameter("date", getMonthString()).list();
 		for(Object[] s : salesList){
 			logger.info("Sales List::"+s);
 		}
@@ -46,10 +56,10 @@ public class SalesDaoImpl implements SalesDao {
 				+ " join okres o on o.kraj_id = k.id_kraj"
 				+ " join mesto m on m.okres_id = o.id_okres"
 				+ " join klient k on k.mesto_id = m.id_mesto"
-				+ " join predaj p on p.klient_id = k.id_klient"
+				+ " join predaj p on p.klient_id = k.id_klient and p.time >= :date  "
 				+ " join produkt pr on pr.id_produkt = p.produkt_id "
 				+"group by pr.nazov"
-			).list();
+			).setParameter("date", getMonthString()).list();
 		for(Object[] s : salesList){
 			logger.info("Produkt List::"+s);
 		}
@@ -66,8 +76,9 @@ public class SalesDaoImpl implements SalesDao {
 				+"left join mesto m on m.okres_id = o.id_okres "
 				+"left join klient kl on kl.mesto_id = m.id_mesto "
 				+"left join predaj pr on pr.klient_id = kl.id_klient and pr.produkt_id in (select id_produkt from produkt where nazov in :product ) "
+				+"and pr.time >= :date "
 				+"left join produkt p on p.id_produkt = pr.produkt_id "  
-				+"group by k.nazov").setParameter("product", product)
+				+"group by k.nazov").setParameter("product", product).setParameter("date", getMonthString())
 				.list();
 		     
 		for(Object[] s : countySales){
@@ -77,6 +88,41 @@ public class SalesDaoImpl implements SalesDao {
 		
 		return countySales;		
 		
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> getTopBranches(String date) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Object[]> branchSales =(List<Object[]>) session.createSQLQuery(
+				"select PO.nazov, count(*) as pocet from pobocka PO "
+				+"join predajca P on P.pobocka_id = PO.id_pobocka "
+				+"join predaj PR on PR.predajca_id = P.id_predajca "
+				+"where PR.time >= :date "
+				+"and rownum <= 11 "
+				+"group by PO.nazov "
+				+"order by count(*) desc")
+				.setParameter("date", date)
+				.list();
+		return branchSales;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> getTopSellers(String date) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Object[]> salers =(List<Object[]>) session.createSQLQuery(
+				"select P.meno, P.priezvisko, count(*) from predajca P "
+			    +"join predaj PR on PR.predajca_id = P.id_predajca and PR.TIME >= :date " 
+			    +"and rownum <= 11 "
+			    +"group by P.meno, P.priezvisko "
+			    +"order by count(*) desc"
+			  
+				)
+				.setParameter("date", date)
+				.list();
+		return salers;
 	}
     
 	

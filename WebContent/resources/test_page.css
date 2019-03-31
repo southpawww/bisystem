@@ -149,6 +149,9 @@ body {
   .card:nth-child(3) {
     height: 485px;
   }
+  .card:nth-child(4) {
+    height: 485px;
+  }
   
   
   
