@@ -183,6 +183,7 @@
 	</table>
 	</div>
       </div>
+        <div class="card"></div>
        <div class="card"><h3>User profile</h3>
         <c:url var="updateAction" value="/user/edit" ></c:url>
      <form:form action="${updateAction}" modelAttribute="userProfile">

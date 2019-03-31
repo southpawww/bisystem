@@ -78,7 +78,8 @@
       <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 	 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
       </div>
-      <div class="card">Chart #2</div>
+      <div class="card">Chart #2
+      ${datetime}</div>
 
       <div class="card">
        <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
@@ -158,7 +159,7 @@ chart.render();
 
 
 
-var dps = [[], [], [], []];
+var dps = [[], [], [], [],[]];
 var chart = new CanvasJS.Chart("chartContainer2", {
 	animationEnabled: true,
 	exportEnabled: true,
@@ -177,24 +178,37 @@ var chart = new CanvasJS.Chart("chartContainer2", {
 	toolTip: {
 		shared: true
 	},
+	
 	data: [{
 		type: "stackedBar",
-		name: "Local Calls",
+		name: "Osobný účet - Premium",
 		showInLegend: true,
 	
 		dataPoints: dps[0]
 	},{
 		type: "stackedBar",
-		name: "Call to Mobile",
+		name: "Osobný účet - Junior",
 		showInLegend: true,
 		
 		dataPoints: dps[1]
 	},{
 		type: "stackedBar",
-		name: "International Call",
+		name: "Vkladná knižka",
 		showInLegend: true,
 		
 		dataPoints: dps[2]
+	},{
+		type: "stackedBar",
+		name: "Hypotéka na bývanie",
+		showInLegend: true,
+		
+		dataPoints: dps[3]
+	},{
+		type: "stackedBar",
+		name: "Úver na auto",
+		showInLegend: true,
+		
+		dataPoints: dps[4]
 	}]
 });
 function toggleDataSeries(e){

@@ -4,6 +4,8 @@ package com.bisystem.web.controller;
 
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -95,6 +97,10 @@ public class LoginController {
 	    
 		modell.addAttribute("dataPointsList", canvasjsChartService.getCanvasjsChartData());
 		modell.addAttribute("dataPointsListCounty", canvasjsChartService.getCountyChart());
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyy");
+		String a = ft.format(date);
+		modell.addAttribute("datetime", a );
 		
 		
 		return model;

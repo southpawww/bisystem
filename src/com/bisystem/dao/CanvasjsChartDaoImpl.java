@@ -30,9 +30,12 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 	public List<List<Map<Object, Object>>> getCanvasjsChartData() {
 		    
 		    dataPoints1.clear();
-		    for(int i=0	;i<salesService.listSales().size();i++) {
+		    for(int i=0	;i<salesService.listSales().size();i++){
 		    
-		    map = new HashMap<Object,Object>(); map.put("label", salesService.listSales().get(i)[0]); map.put("y", salesService.listSales().get(i)[1]);dataPoints1.add(map);
+		    map = new HashMap<Object,Object>();
+		    map.put("label", salesService.listSales().get(i)[0]); 
+		    map.put("y", salesService.listSales().get(i)[1]);
+		    dataPoints1.add(map);
 		    	
 		    }
 			list.clear();
@@ -42,14 +45,7 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 	// county chart
 	static Map<Object,Object> mapCounty = null;
 	static List<List<Map<Object,Object>>> listCounty = new ArrayList<List<Map<Object,Object>>>();
-	static List<Map<Object,Object>> dataPoints1c = new ArrayList<Map<Object,Object>>();
-	static List<Map<Object,Object>> dataPoints2c = new ArrayList<Map<Object,Object>>();
-	static List<Map<Object,Object>> dataPoints3c = new ArrayList<Map<Object,Object>>();
-	static List<Map<Object, Object>>dataPoints4c= new ArrayList<Map<Object,Object>>();
-      
-	
-	
-	
+
 	@Override
 	public List<List<Map<Object, Object>>> getCountyChart() {
      	
