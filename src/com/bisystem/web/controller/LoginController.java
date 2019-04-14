@@ -5,6 +5,7 @@ package com.bisystem.web.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +102,23 @@ public class LoginController {
 		modell.addAttribute("listBranches", canvasjsChartService.getTopBranches());
 		modell.addAttribute("listSellers", canvasjsChartService.getTopSellers());
 		modell.addAttribute("yearList", canvasjsChartService.getYearSales());
+	
 		
+		List<List<Map<Object,Object>>> listDailySales = new ArrayList<List<Map<Object,Object>>>();
+		listDailySales = canvasjsChartService.getDailySales();
+		listDailySales.get(0).get(0);
+		
+		modell.addAttribute("dailySalesP1n", listDailySales.get(0).get(0).get("product"));
+		modell.addAttribute("dailySalesP1s", listDailySales.get(0).get(0).get("sale"));
+		
+		modell.addAttribute("dailySalesP2n", listDailySales.get(1).get(0).get("product"));
+		modell.addAttribute("dailySalesP2s", listDailySales.get(1).get(0).get("sale"));
+		
+		modell.addAttribute("dailySalesP3n", listDailySales.get(2).get(0).get("product"));
+		modell.addAttribute("dailySalesP3s", listDailySales.get(2).get(0).get("sale"));
+		
+		modell.addAttribute("dailySalesP4n", listDailySales.get(3).get(0).get("product"));
+		modell.addAttribute("dailySalesP4s", listDailySales.get(3).get(0).get("sale"));
 		
 		return model;
 	}

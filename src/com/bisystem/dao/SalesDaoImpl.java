@@ -32,7 +32,7 @@ public class SalesDaoImpl implements SalesDao {
 		SimpleDateFormat ft = new SimpleDateFormat ("01-MMM-yy");
 		String a = ft.format(date);
 		
-		return a;
+		return "01-MAR-18";
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -123,6 +123,20 @@ public class SalesDaoImpl implements SalesDao {
 				.setParameter("date", date)
 				.list();
 		return salers;
+	}
+
+	@Override
+	public List<Object[]> getDailySales(String date) {
+		Session session = this.sessionFactory.getCurrentSession();
+		@SuppressWarnings("unchecked")
+		List<Object[]> dailySales =(List<Object[]>) session.createSQLQuery(
+				"select nazov as nazov_produktu, count(*) as pocet from predaj"
+				+" join produkt  on produkt.id_produkt=predaj.produkt_id"
+				+" where predaj.time >='01-MAR-19'"
+				+" group by produkt_id, nazov"
+			  
+				).list();
+		return dailySales;
 	}
     
 	

@@ -31,7 +31,7 @@
    
   <header class="header">
    <div class="topnav">
-   <a href="#"  style="width:18px;" class="active">""</a>
+   <a href="#"  style="width:18px;" class="active">RS</a>
   <a href="${pageContext.request.contextPath}/homePage">Dashboard</a>
  
  
@@ -183,7 +183,7 @@
 	</table>
 	</div>
       </div>
-        <div class="card"></div>
+    
        <div class="card"><h3>User profile</h3>
         <c:url var="updateAction" value="/user/edit" ></c:url>
      <form:form action="${updateAction}" modelAttribute="userProfile">
@@ -253,7 +253,7 @@
 
   <footer class="footer">
     <div class="footer__copyright" style="float:left">&copy; 2019</div>
-    <div class="footer__signature">Made by me...</div>
+    <div class="footer__signature">Made by Marek Beno</div>
   </footer>
 </div>
 <script>

@@ -45,4 +45,10 @@ public class CanvasjsChartServiceImpl implements CanvasjsChartService {
 	public List<List<Map<Object, Object>>> getTopSellers() {
 		return this.canvasjsChartDao.getTopSellers();
 	}
+
+	@Override
+	public List<List<Map<Object, Object>>> getDailySales() {
+		return this.canvasjsChartDao.getDailySales();
+
+	}
 }

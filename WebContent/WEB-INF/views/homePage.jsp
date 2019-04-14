@@ -24,7 +24,7 @@
    
   <header class="header">
    <div class="topnav">
-   <a href="#"  style="width:18px;" class="active">""</a>
+   <a href="#"  style="width:18px;" class="active">RS</a>
   <a href="${pageContext.request.contextPath}/homePage">Dashboard</a>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
     <a href="${pageContext.request.contextPath}/admin/usermanagement">User Management</a>
@@ -58,27 +58,27 @@
     <div class="main-header">
     <div id="chartContainer3" style="height: 250px; width: 100%;"></div>
        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-      <div class="main-header__heading">Hello
-      ${username}</div>
-      <div class="main-header__updates">Recent Items</div>
+      <div class="main-header__heading"></div>
+      <div class="main-header__updates"></div>
     </div>
 
     <div class="main-overview">
       <div class="overviewcard">
-        <div class="overviewcard__icon">Overview</div>
-        <div class="overviewcard__info">Summary</div>
+          ${dailySales}
+        <div class="overviewcard__icon"><b><font size="5" color="black">${dailySalesP1n}</font></b></div>
+        <div class="overviewcard__info"><b><font size="5" color="black">${dailySalesP1s}</font></b></div>
       </div>
       <div class="overviewcard">
-        <div class="overviewcard__icon">Overview</div>
-        <div class="overviewcard__info">Summary</div>
+        <div class="overviewcard__icon"><b><font size="5" color="black">${dailySalesP2n}</font></b></div>
+        <div class="overviewcard__info"><b><font size="5" color="black">${dailySalesP2s}</font></b></div>
       </div>
       <div class="overviewcard">
-        <div class="overviewcard__icon">Overview</div>
-        <div class="overviewcard__info">Summary</div>
+        <div class="overviewcard__icon"><b><font size="5" color="black">${dailySalesP3n}</font></b></div>
+        <div class="overviewcard__info"><b><font size="5" color="black">${dailySalesP3s}</font></b></div>
       </div>
       <div class="overviewcard">
-        <div class="overviewcard__icon">Overview</div>
-        <div class="overviewcard__info">Summary</div>
+        <div class="overviewcard__icon"><b><font size="5" color="black">${dailySalesP4n}</font></b></div>
+        <div class="overviewcard__info"><b><font size="5" color="black">${dailySalesP4s}</font></b></div>
       </div>
     </div>
 
@@ -88,7 +88,7 @@
 	 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
       </div>
       <div class="card">
-      <h3><font color="black">Top 10 Branches </font></h3>
+      <h3><font color="black">Top Branches </font></h3>
 <div style="height:400px;width: 100%;">
 	<table id="myTable" class="tg" style="width: 100%;">
 	<tr>
@@ -116,7 +116,7 @@
       
       </div>
       <div class="card">
-       <h3><font color="black">Top 10 Sellers </font></h3>
+       <h3><font color="black">Top Sellers </font></h3>
 <div style="height:400px;width: 100%;">
 	<table id="myTable" class="tg" style="width: 100%;">
 	<tr>
@@ -143,7 +143,7 @@
 
   <footer class="footer">
     <div class="footer__copyright" style="float:left">&copy; 2019</div>
-    <div class="footer__signature">Made by me...</div>
+    <div class="footer__signature">Made by Marek Beno</div>
   </footer>
 </div>
 <c:url value="/logout" var="logoutUrl" />
@@ -171,7 +171,10 @@
  </body>
  <script type="text/javascript">
 window.onload = function() {
- 
+
+	
+	
+	
 var dps = [[]];
 var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "light2", // "light1", "dark1", "dark2"
@@ -296,13 +299,13 @@ var chartYear = new CanvasJS.Chart("chartContainer3", {
 	theme: "light2", // "light1", "dark1", "dark2"
 	animationEnabled: true,
 	title: {
-		text: "Diamond Production: 2006 - 2016"
+		text: "Yearly sales: 2006 - 2019"
 	},
 	axisX: {
 		valueFormatString: "YYYY"
 	},
 	axisY: {
-		title: "Volume (in million carats)"
+		title: "sales in thousands"
 	},
 	legend: {
 		cursor: "pointer",
@@ -311,7 +314,7 @@ var chartYear = new CanvasJS.Chart("chartContainer3", {
 	},
 	data: [{
 		type: "area",
-		name: "Russia",
+		name: "Loans",
 		showInLegend: true,
 		xValueType: "dateTime",
 		xValueFormatString: "YYYY",
@@ -319,7 +322,7 @@ var chartYear = new CanvasJS.Chart("chartContainer3", {
 		dataPoints: dps[0]
 	},{
 		type: "area",
-		name: "Congo",
+		name: "Accounts",
 		showInLegend: true,
 		xValueType: "dateTime",
 		xValueFormatString: "YYYY",
@@ -327,7 +330,7 @@ var chartYear = new CanvasJS.Chart("chartContainer3", {
 		dataPoints: dps[1]
 	},{
 		type: "area",
-		name: "Australia",
+		name: "Insurances",
 		showInLegend: true,
 		xValueType: "dateTime",
 		xValueFormatString: "YYYY",

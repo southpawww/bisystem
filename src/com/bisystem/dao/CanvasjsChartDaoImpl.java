@@ -87,7 +87,11 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 			   }
 		Date date = new Date();
 		SimpleDateFormat ft = new SimpleDateFormat ("01-MMM-yy");
-		String a = ft.format(date);
+		//for prod. enviroment
+		//String a = ft.format(date);
+		
+		//for test only
+		String a = "01-MAR-19";
 		List<Object[]> branchSales= this.salesService.getTopBranches(a);;
 		for(int i =0; i< this.salesService.getTopBranches(a).size();i++){
 			
@@ -124,7 +128,7 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 			map = new HashMap<Object,Object>(); map.put("x", 1356978600000L); map.put("y", 37.9);dataPoints1.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1388514600000L); map.put("y", 38.3);dataPoints1.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1420050600000L); map.put("y", 41.9);dataPoints1.add(map);
-			map = new HashMap<Object,Object>(); map.put("x", 1451586600000L); map.put("y", 40.3);dataPoints1.add(map);
+			map = new HashMap<Object,Object>(); map.put("x", 1555192800000L); map.put("y", 40.3);dataPoints1.add(map);
 			
 			map = new HashMap<Object,Object>(); map.put("x", 1136053800000L); map.put("y", 29);dataPoints2.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1167589800000L); map.put("y", 28.5);dataPoints2.add(map);
@@ -136,7 +140,7 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 			map = new HashMap<Object,Object>(); map.put("x", 1356978600000L); map.put("y", 15.7);dataPoints2.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1388514600000L); map.put("y", 15.7);dataPoints2.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1420050600000L); map.put("y", 16);dataPoints2.add(map);
-			map = new HashMap<Object,Object>(); map.put("x", 1451586600000L); map.put("y", 23.2);dataPoints2.add(map);
+			map = new HashMap<Object,Object>(); map.put("x", 1555192800000L); map.put("y", 23.2);dataPoints2.add(map);
 			
 			map = new HashMap<Object,Object>(); map.put("x", 1136053800000L); map.put("y", 29.9);dataPoints3.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1167589800000L); map.put("y", 18.5);dataPoints3.add(map);
@@ -148,7 +152,7 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 			map = new HashMap<Object,Object>(); map.put("x", 1356978600000L); map.put("y", 11.7);dataPoints3.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1388514600000L); map.put("y", 9.3);dataPoints3.add(map);
 			map = new HashMap<Object,Object>(); map.put("x", 1420050600000L); map.put("y", 13.6);dataPoints3.add(map);
-			map = new HashMap<Object,Object>(); map.put("x", 1451586600000L); map.put("y", 14);dataPoints3.add(map);
+			map = new HashMap<Object,Object>(); map.put("x", 1555192800000L); map.put("y", 14);dataPoints3.add(map);
 			
 			list.add(dataPoints1);
 			list.add(dataPoints2);
@@ -170,7 +174,12 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 				   }
 			Date date = new Date();
 			SimpleDateFormat ft = new SimpleDateFormat ("01-MMM-yy");
-			String a = ft.format(date);
+			
+			//for product enviroment
+			//String a = ft.format(date);
+			
+			//for test only
+			String a="01-MAR-19";
 			List<Object[]> branchSales= this.salesService.getTopSalers(a);
 			for(int i =0; i< this.salesService.getTopSalers(a).size();i++){
 				
@@ -187,6 +196,38 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 		    }
 			
 			return listSelers;
+	}
+	
+	static List<List<Map<Object,Object>>> listDailySales = new ArrayList<List<Map<Object,Object>>>();
+	static Map<Object,Object> mapDailySales = null;
+	@Override
+	public List<List<Map<Object, Object>>> getDailySales() {
+		 if(!listDailySales.isEmpty()){
+			 listDailySales.clear();
+			   }
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat ("01-MMM-yy");
+		
+		//for product enviroment
+		//String a = ft.format(date);
+		
+		//for test only
+		String a="01-MAR-19";
+		List<Object[]> branchSales= this.salesService.getDailySales(a);
+		for(int i =0; i< this.salesService.getTopSalers(a).size();i++){
+			
+			listDailySales.add(new ArrayList<Map<Object,Object>>());
+		}
+         for(int i =0; i< this.salesService.getTopBranches(a).size();i++){
+
+        	 mapDailySales = new HashMap<Object,Object>();
+        	 mapDailySales.put("product",branchSales.get(i)[0]); 
+        	 mapDailySales.put("sale",branchSales.get(i)[1]); 
+        	 listDailySales.get(i).add(mapDailySales);    
+        	
+	    }
+		
+		return listDailySales;
 	}
 	
 	

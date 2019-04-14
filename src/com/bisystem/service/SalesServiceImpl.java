@@ -48,8 +48,16 @@ private SalesDao salesDao;
 
 
 	@Override
+	@Transactional
 	public List<Object[]> getTopSalers(String date) {
 		return this.salesDao.getTopSellers(date);
+	}
+
+
+	@Override
+	@Transactional
+	public List<Object[]> getDailySales(String date) {
+		return this.salesDao.getDailySales(date);
 	}
 
 }

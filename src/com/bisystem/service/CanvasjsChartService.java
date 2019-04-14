@@ -10,5 +10,7 @@ public interface CanvasjsChartService {
 	public List<List<Map<Object, Object>>> getTopBranches();
 	public List<List<Map<Object,Object>>> getTopSellers();
 	public List<List<Map<Object,Object>>> getYearSales();
+	public List<List<Map<Object,Object>>> getDailySales();
+
 
 }
